@@ -1,0 +1,7 @@
+{
+	"files":[
+		"command.lua",
+		"main.lua",
+		"startup.lua"
+	]
+}
