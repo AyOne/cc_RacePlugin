@@ -46,7 +46,7 @@ function update.get_all_files()
 	for i, fileName in ipairs(config.files) do
 		print("Getting "..fileName.." from github...")
 		local file = http.get(github_url..fileName) or error("Could not get the file from github")
-		print("Saving "..file.."...")
+		print("Saving "..fileName.."...")
 		if file then
 			local localfile = fs.open(fileName, "w")
 			localfile.write(file.readAll())
