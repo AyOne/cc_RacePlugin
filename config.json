@@ -2,6 +2,7 @@
 	"files":[
 		"command.lua",
 		"main.lua",
-		"startup.lua"
+		"startup.lua",
+		"configurator.lua"
 	]
 }
