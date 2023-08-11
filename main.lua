@@ -40,7 +40,7 @@ function race()
 	chatBox.sendMessageToPlayer("Be ready on the starting line in 10...", racing_player, "Race Plugin")
 	for i=1, 9 do
 		sleep(1)
-		charBox.sendMessageToPlayer(10 - i.."..."m racing_player, "Race Plugin")
+		charBox.sendMessageToPlayer((10 - i).."...", racing_player, "Race Plugin")
 	end
 	sleep(1)
 	chatBox.sendMessageToPlayer("Gooo !!!", racing_player, "Race Plugin")
