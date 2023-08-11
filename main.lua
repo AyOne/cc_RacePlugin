@@ -41,7 +41,35 @@ function race()
 	sleep(1)
 	chatBox.sendMessageToPlayer("Gooo !!!", racing_player, "Race Plugin")
 
-	-- todo
+	local start_time = os.time()
+	local current_time = start_time
+	local current_checkpoint = 0
+	while true do
+		checkpoint_to_reach = nil
+		if (current_checkpoint == 0) then
+			racing_player_data["checkpoints"]["start"]
+		elseif (current_checkpoint < #config["checkpoints"]) then
+			checkpoint_to_reach = racing_player_data["checkpoints"][current_checkpoint]
+		else
+			checkpoint_to_reach = racing_player_data["checkpoints"]["finish"]
+		end
+
+		if (checkpoint_to_reach ~= nil) then
+			local pos = playerDetector.getPlayerPos(racing_player)
+			-- check if player pos are in between checkpoint_to_reach.from and checkpoint_to_reach.to
+
+			if (pos.x >= checkpoint_to_reach.from.x and pos.x <= checkpoint_to_reach.to.x) then
+				if (pos.y >= checkpoint_to_reach.from.y and pos.y <= checkpoint_to_reach.to.y) then
+					if (pos.z >= checkpoint_to_reach.from.z and pos.z <= checkpoint_to_reach.to.z) then
+						-- player is in the checkpoint
+						current_checkpoint = current_checkpoint + 1
+						racing_player_data["checkpoints"][current_checkpoint] = current_time - start_time
+						-- database.update_player(racing_player, racing_player_data)
+					end
+				end
+			end
+		end
+	end
 end
 
 
