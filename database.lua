@@ -74,13 +74,15 @@ function database.update_player(name, checkpoint, time)
 	database.scoreboard[name][checkpoint] = time
 end
 
-function database.sort_scoreboard()
-	local sorted_scoreboard = {}
-	for name, score in pairs(database.scoreboard) do
-		table.insert(sorted_scoreboard, {name = name, score = score})
+function database.sort_scoreboard(checkpoint)
+	local scoreboard = {}
+	for name, player in pairs(database.scoreboard) do
+		if player[checkpoint] then
+			table.insert(scoreboard, {name, player[checkpoint]})
+		end
 	end
-	table.sort(sorted_scoreboard, function(a, b) return a.score > b.score end)
-	return sorted_scoreboard
+	table.sort(scoreboard, function(a, b) return a[2] < b[2] end)
+	return scoreboard
 end
 
 
