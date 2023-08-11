@@ -29,10 +29,10 @@ function main.run()
 
 
 	-- everything is initiated.
-	race()
+	race("test")
 end
 
-function race()
+function race(race_name)
 	racing_player = wait_for_player()
 	racing_player_data = database.get_player(player)
 	chatBox.sendMessageToPlayer("You have subscribe to the race, it will start soon !", racing_player, "Race Plugin")
@@ -48,14 +48,15 @@ function race()
 	local start_time = os.time()
 	local current_time = start_time
 	local current_checkpoint = 0
-	checkpoint_to_reach = build_checkpoint(config["checkpoints"]["start"]["from"], config["checkpoints"]["start"]["to"])
+	raw_race = config["race"][race_name]
+	checkpoint_to_reach = build_checkpoint(raw_race["checkpoints"]["start"]["from"], raw_race["checkpoints"]["start"]["to"])
 	while true do
 		if (player_in_checkpoint(racing_player, checkpoint_to_reach)) then
 			current_checkpoint = current_checkpoint + 1
-			if (current_checkpoint > #config["checkpoints"]) then
-				checkpoint_to_reach = build_checkpoint(config["checkpoints"]["finish"]["from"], config["checkpoints"]["finish"]["to"])
+			if (current_checkpoint > #raw_race["checkpoints"]) then
+				checkpoint_to_reach = build_checkpoint(raw_race["checkpoints"]["finish"]["from"], raw_race["checkpoints"]["finish"]["to"])
 			else
-				checkpoint_to_reach = build_checkpoint(config["checkpoints"][current_checkpoint]["from"], config["checkpoints"][current_checkpoint]["to"])
+				checkpoint_to_reach = build_checkpoint(raw_race["checkpoints"][current_checkpoint]["from"], raw_race["checkpoints"][current_checkpoint]["to"])
 			end
 		end
 	end
