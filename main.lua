@@ -49,12 +49,12 @@ function race(race_name)
 	local current_time = start_time
 	local current_checkpoint = 0
 	raw_race = config["race"][race_name]
-	checkpoint_to_reach = build_checkpoint(raw_race["checkpoints"]["start"]["from"], raw_race["checkpoints"]["start"]["to"])
+	checkpoint_to_reach = build_checkpoint(raw_race["start"]["from"], raw_race["start"]["to"])
 	while true do
 		if (player_in_checkpoint(racing_player, checkpoint_to_reach)) then
 			current_checkpoint = current_checkpoint + 1
 			if (current_checkpoint > #raw_race["checkpoints"]) then
-				checkpoint_to_reach = build_checkpoint(raw_race["checkpoints"]["finish"]["from"], raw_race["checkpoints"]["finish"]["to"])
+				checkpoint_to_reach = build_checkpoint(raw_race["finish"]["from"], raw_race["finish"]["to"])
 			else
 				checkpoint_to_reach = build_checkpoint(raw_race["checkpoints"][current_checkpoint]["from"], raw_race["checkpoints"][current_checkpoint]["to"])
 			end
