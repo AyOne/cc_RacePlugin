@@ -89,10 +89,14 @@ function player_passed_checkpoint(player, checkpoint)
 	if collisionDetection.lineToHitbox(last_pos.x, last_pos.y, last_pos.z, pos.x, pos.y, pos.z, checkpoint["min_x"], checkpoint["min_y"], checkpoint["min_z"], checkpoint["max_x"], checkpoint["max_y"], checkpoint["max_z"]) then
 		monitor.write(player.." passed the checkpoint !")
 		cur_y = (cur_y + 1) % max_y
+
+		sleep(0.5)
+		last_pos = pos
 		return true
 	end
-	return false
 	sleep(0.5)
+	last_pos = pos
+	return false
 end
 
 
