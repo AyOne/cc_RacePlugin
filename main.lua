@@ -10,6 +10,7 @@ config = json.decode(config.readAll())
 playerDetector = peripheral.find("playerDetector")
 chatBox = peripheral.find("chatBox")
 monitor = peripheral.find("monitor")
+speaker = peripheral.find("speaker")
 monitor.setTextScale(0.5)
 monitor.clear()
 cur_x, cur_y = 1,1
@@ -40,14 +41,21 @@ end
 function race(race_name)
 	racing_player = wait_for_player()
 	racing_player_data = database.get_player(player)
+	monitor.clear()
+	cur_x, cur_y = 1,1
+	monitor.setCursorPos(1,1)
+	monitor.write(racing_player.." is racing !")
+	cur_y = (cur_y + 1) % max_y
 	chatBox.sendMessageToPlayer("You have subscribe to the race, it will start soon !", racing_player, "Race Plugin")
 	sleep(2)
 	chatBox.sendMessageToPlayer("Be ready on the starting line in 10...", racing_player, "Race Plugin")
 	for i=1, 9 do
 		sleep(1)
+		speaker.playSound("bell", 3, 20)
 		chatBox.sendMessageToPlayer((10 - i).."...", racing_player, "Race Plugin")
 	end
 	sleep(1)
+	speaker.playSound("bell", 3, 24)
 	chatBox.sendMessageToPlayer("Gooo !!!", racing_player, "Race Plugin")
 
 	local start_time = os.epoch("utc")
@@ -70,14 +78,21 @@ function race(race_name)
 
 
 			current_checkpoint = current_checkpoint + 1
-			if (last == true)
+			if (last == true) then
+				speaker.playSound("bell", 3, 24)
+				sleep(0.2)
+				speaker.playSound("bell", 3, 24)
+				sleep(0.2)
+				speaker.playSound("bell", 3, 24)
 				break
 			end
 			if (current_checkpoint > #raw_race["checkpoints"]) then
 				checkpoint_to_reach = build_checkpoint(raw_race["finish"]["from"], raw_race["finish"]["to"])
+				speaker.playSound("bell", 3, 10)
+				last = true
 			else
 				checkpoint_to_reach = build_checkpoint(raw_race["checkpoints"][current_checkpoint]["from"], raw_race["checkpoints"][current_checkpoint]["to"])
-				last = true
+				speaker.playSound("bell", 3, 10)
 			end
 		end
 	end
