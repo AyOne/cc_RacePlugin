@@ -47,13 +47,24 @@ function race(race_name)
 	sleep(1)
 	chatBox.sendMessageToPlayer("Gooo !!!", racing_player, "Race Plugin")
 
-	local start_time = os.time()
+	local start_time = os.epoch("utc")
 	local current_time = start_time
 	local current_checkpoint = 0
 	raw_race = config["race"][race_name]
 	checkpoint_to_reach = build_checkpoint(raw_race["start"]["from"], raw_race["start"]["to"])
 	while true do
 		if (player_passed_checkpoint(racing_player, checkpoint_to_reach)) then
+
+			checkpoint_time = os.epoch("utc") - current_time
+			current_time = os.epoch("utc")
+			
+			monitor.write("Checkpoint "..current_checkpoint.." in "..math.floor((os.epoch("utc") - start_time) / 1000).."."..math.floor((os.epoch("utc") - start_time) % 1000).."s with a total time of "..math.floor((os.epoch("utc") - start_time) / 1000).."."..math.floor((os.epoch("utc") - start_time) % 1000).."s
+			cur_y = (cur_y + 1) % max_y
+			monitor.setCursorPos(1, cur_y)
+
+
+
+
 			current_checkpoint = current_checkpoint + 1
 			if (current_checkpoint > #raw_race["checkpoints"]) then
 				checkpoint_to_reach = build_checkpoint(raw_race["finish"]["from"], raw_race["finish"]["to"])
@@ -87,17 +98,9 @@ function player_passed_checkpoint(player, checkpoint)
 	end
 
 	if pos["x"] > checkpoint["max_x"] and pos["x"] < checkpoint["min_x"] and pos["y"] > checkpoint["max_y"] and pos["y"] < checkpoint["min_y"] and pos["z"] > checkpoint["max_z"] and pos["z"] < checkpoint["min_z"] then
-		monitor.write(player.." passed the checkpoint !")
-		cur_y = (cur_y + 1) % max_y
-		monitor.setCursorPos(1, cur_y)
-
 		last_pos = pos
 		return true
 	elseif collisionDetection.lineToHitbox(last_pos.x, last_pos.y, last_pos.z, pos.x, pos.y, pos.z, checkpoint["min_x"], checkpoint["min_y"], checkpoint["min_z"], checkpoint["max_x"], checkpoint["max_y"], checkpoint["max_z"]) then
-		monitor.write(player.." passed the checkpoint !")
-		cur_y = (cur_y + 1) % max_y
-		monitor.setCursorPos(1, cur_y)
-
 		last_pos = pos
 		return true
 	end
