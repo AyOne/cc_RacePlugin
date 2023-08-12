@@ -86,19 +86,17 @@ function player_passed_checkpoint(player, checkpoint)
 		return false
 	end
 
-	monitor.write(player.." : "..pos.x.." "..pos.y.." "..pos.z)
-	cur_y = (cur_y + 1) % max_y
-	monitor.setCursorPos(1, cur_y)
-
 	if pos["x"] > checkpoint["max_x"] or pos["x"] < checkpoint["min_x"] or pos["y"] > checkpoint["max_y"] or pos["y"] < checkpoint["min_y"] or pos["z"] > checkpoint["max_z"] or pos["z"] < checkpoint["min_z"] then
 		monitor.write(player.." is out of the checkpoint !")
 		cur_y = (cur_y + 1) % max_y
+		monitor.setCursorPos(1, cur_y)
 
 		last_pos = pos
 		return true
 	elseif collisionDetection.lineToHitbox(last_pos.x, last_pos.y, last_pos.z, pos.x, pos.y, pos.z, checkpoint["min_x"], checkpoint["min_y"], checkpoint["min_z"], checkpoint["max_x"], checkpoint["max_y"], checkpoint["max_z"]) then
 		monitor.write(player.." passed the checkpoint !")
 		cur_y = (cur_y + 1) % max_y
+		monitor.setCursorPos(1, cur_y)
 
 		last_pos = pos
 		return true
