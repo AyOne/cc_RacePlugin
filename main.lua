@@ -31,7 +31,10 @@ function main.run()
 
 
 	-- everything is initiated.
-	race("test")
+	while true do
+		race("test")
+		sleep(5)
+	end
 end
 
 function race(race_name)
@@ -52,13 +55,14 @@ function race(race_name)
 	local current_checkpoint = 0
 	raw_race = config["race"][race_name]
 	checkpoint_to_reach = build_checkpoint(raw_race["start"]["from"], raw_race["start"]["to"])
+	last = false
 	while true do
 		if (player_passed_checkpoint(racing_player, checkpoint_to_reach)) then
 
 			checkpoint_time = os.epoch("utc") - current_time
 			current_time = os.epoch("utc")
-			
-			monitor.write("Checkpoint "..current_checkpoint.." in "..math.floor((os.epoch("utc") - start_time) / 1000).."."..math.floor((os.epoch("utc") - start_time) % 1000).."s with a total time of "..math.floor((os.epoch("utc") - start_time) / 1000).."."..math.floor((os.epoch("utc") - start_time) % 1000).."s
+
+			monitor.write("Checkpoint "..current_checkpoint.." in "..math.floor((os.epoch("utc") - start_time) / 1000).."."..math.floor((os.epoch("utc") - start_time) % 1000).."s with a total time of "..math.floor((os.epoch("utc") - start_time) / 1000).."."..math.floor((os.epoch("utc") - start_time) % 1000).."s")
 			cur_y = (cur_y + 1) % max_y
 			monitor.setCursorPos(1, cur_y)
 
@@ -66,10 +70,14 @@ function race(race_name)
 
 
 			current_checkpoint = current_checkpoint + 1
+			if (last == true)
+				break
+			end
 			if (current_checkpoint > #raw_race["checkpoints"]) then
 				checkpoint_to_reach = build_checkpoint(raw_race["finish"]["from"], raw_race["finish"]["to"])
 			else
 				checkpoint_to_reach = build_checkpoint(raw_race["checkpoints"][current_checkpoint]["from"], raw_race["checkpoints"][current_checkpoint]["to"])
+				last = true
 			end
 		end
 	end
