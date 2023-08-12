@@ -12,6 +12,7 @@ monitor = peripheral.find("monitor")
 monitor.setTextScale(0.5)
 monitor.clear()
 cur_x, cur_y = 1,1
+max_x, max_y = monitor.getSize()
 monitor.setCursorPos(1,1)
 
 
@@ -77,9 +78,11 @@ end
 function player_in_checkpoint(player, checkpoint)
 	local pos = playerDetector.getPlayerPos(player)
 	monitor.write(player.." : "..pos.x.." "..pos.y.." "..pos.z)
-	cur_y = cur_y + 1
+	cur_y = (cur_y + 1) % max_y
 	monitor.setCursorPos(1, cur_y)
 	if (pos.x <= checkpoint["max_x"] and pos.x >= checkpoint["min_x"] and pos.y <= checkpoint["max_y"] and pos.y >= checkpoint["min_y"] and pos.z <= checkpoint["max_z"] and pos.z >= checkpoint["min_z"]) then
+		monitor.write(player.." passed the checkpoint !")
+		cur_y = (cur_y + 1) % max_y
 		return true
 	end
 	return false
