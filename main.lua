@@ -65,26 +65,22 @@ end
 
 function build_checkpoint(from, to)
 	hitbox = {}
-	hitbox["max_x"] = math.max(from.x, to.x)
-	hitbox["min_x"] = math.min(from.x, to.x)
-	hitbox["max_y"] = math.max(from.y, to.y)
-	hitbox["min_y"] = math.min(from.y, to.y)
-	hitbox["max_z"] = math.max(from.z, to.z)
-	hitbox["min_z"] = math.min(from.z, to.z)
+	hitbox["max_x"] = math.max(from["x"], to["x"])
+	hitbox["min_x"] = math.min(from["x"], to["x"])
+	hitbox["max_y"] = math.max(from["y"], to["y"])
+	hitbox["min_y"] = math.min(from["y"], to["y"])
+	hitbox["max_z"] = math.max(from["z"], to["z"])
+	hitbox["min_z"] = math.min(from["z"], to["z"])
 	return hitbox
 end
 
 function player_in_checkpoint(player, checkpoint)
 	local pos = playerDetector.getPlayerPos(player)
-	monitor.write(player.name.." : "..pos.x.." "..pos.y.." "..pos.z)
+	monitor.write(player.." : "..pos.x.." "..pos.y.." "..pos.z)
 	cur_y = cur_y + 1
 	monitor.setCursorPos(1, cur_y)
-	if (pos.x >= checkpoint.from.x and pos.x <= checkpoint.to.x) then
-		if (pos.y >= checkpoint.from.y and pos.y <= checkpoint.to.y) then
-			if (pos.z >= checkpoint.from.z and pos.z <= checkpoint.to.z) then
-				return true
-			end
-		end
+	if (pos.x <= checkpoint["max_x"] and pos.x >= checkpoint["min_x"] and pos.y <= checkpoint["max_y"] and pos.y >= checkpoint["min_y"] and pos.z <= checkpoint["max_z"] and pos.z >= checkpoint["min_z"]) then
+		return true
 	end
 	return false
 end
