@@ -86,8 +86,8 @@ function player_passed_checkpoint(player, checkpoint)
 		return false
 	end
 
-	if pos["x"] > checkpoint["max_x"] or pos["x"] < checkpoint["min_x"] or pos["y"] > checkpoint["max_y"] or pos["y"] < checkpoint["min_y"] or pos["z"] > checkpoint["max_z"] or pos["z"] < checkpoint["min_z"] then
-		monitor.write(player.." is out of the checkpoint !")
+	if pos["x"] > checkpoint["max_x"] and pos["x"] < checkpoint["min_x"] and pos["y"] > checkpoint["max_y"] and pos["y"] < checkpoint["min_y"] and pos["z"] > checkpoint["max_z"] and pos["z"] < checkpoint["min_z"] then
+		monitor.write(player.." passed the checkpoint !")
 		cur_y = (cur_y + 1) % max_y
 		monitor.setCursorPos(1, cur_y)
 
