@@ -81,6 +81,10 @@ end
 last_pos = nil
 function player_passed_checkpoint(player, checkpoint)
 	local pos = playerDetector.getPlayerPos(player)
+	if not last_pos then
+		last_pos = pos
+		return false
+	end
 
 	monitor.write(player.." : "..pos.x.." "..pos.y.." "..pos.z)
 	cur_y = (cur_y + 1) % max_y
