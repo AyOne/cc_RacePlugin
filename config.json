@@ -1,8 +1,8 @@
 {
 	"files":[
+		"collisionDetection.lua",
 		"command.lua",
 		"config.json",
-		"configurator.lua",
 		"database.lua",
 		"main.lua",
 		"startup.lua",

@@ -2,6 +2,7 @@ main = {}
 
 json = require("json")
 datbase = require("database")
+collisionDetection = require("collisionDetection")
 config = fs.open("config.json", "r")
 config = json.decode(config.readAll())
 
@@ -52,7 +53,7 @@ function race(race_name)
 	raw_race = config["race"][race_name]
 	checkpoint_to_reach = build_checkpoint(raw_race["start"]["from"], raw_race["start"]["to"])
 	while true do
-		if (player_in_checkpoint(racing_player, checkpoint_to_reach)) then
+		if (player_passed_checkpoint(racing_player, checkpoint_to_reach)) then
 			current_checkpoint = current_checkpoint + 1
 			if (current_checkpoint > #raw_race["checkpoints"]) then
 				checkpoint_to_reach = build_checkpoint(raw_race["finish"]["from"], raw_race["finish"]["to"])
@@ -75,18 +76,29 @@ function build_checkpoint(from, to)
 	return hitbox
 end
 
-function player_in_checkpoint(player, checkpoint)
+
+
+last_pos = nil
+function player_passed_checkpoint(player, checkpoint)
 	local pos = playerDetector.getPlayerPos(player)
+
 	monitor.write(player.." : "..pos.x.." "..pos.y.." "..pos.z)
 	cur_y = (cur_y + 1) % max_y
 	monitor.setCursorPos(1, cur_y)
-	if (pos.x <= checkpoint["max_x"] and pos.x >= checkpoint["min_x"] and pos.y <= checkpoint["max_y"] and pos.y >= checkpoint["min_y"] and pos.z <= checkpoint["max_z"] and pos.z >= checkpoint["min_z"]) then
+
+	if collisionDetection.lineToHitbox(last_pos.x, last_pos.y, last_pos.z, pos.x, pos.y, pos.z, checkpoint["min_x"], checkpoint["min_y"], checkpoint["min_z"], checkpoint["max_x"], checkpoint["max_y"], checkpoint["max_z"]) then
 		monitor.write(player.." passed the checkpoint !")
 		cur_y = (cur_y + 1) % max_y
 		return true
 	end
 	return false
+	sleep(0.5)
 end
+
+
+
+
+
 
 
 
