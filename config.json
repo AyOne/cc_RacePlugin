@@ -1,10 +1,10 @@
 {
 	"files":[
+		"admin.lua",
 		"collisionDetection.lua",
-		"command.lua",
-		"config.json",
 		"database.lua",
 		"main.lua",
+		"scoreboard.lua",
 		"startup.lua",
 		"update.lua"
 	],
