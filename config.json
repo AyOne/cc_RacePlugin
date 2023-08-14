@@ -55,6 +55,42 @@
 			},
 			"order":true,
 			"name":"Test"
+		},
+		"ice_test":{
+			"start":{
+				"from":{"x":-11006,"y":137,"z":-105},
+				"to":{"x":-11006,"y":132,"z":-97},
+				"dimension":"overworld"
+			},
+			"finish":{
+				"from":{"x":-11024,"y":137,"z":-97},
+				"to":{"x":-11024,"y":132,"z":-105},
+				"dimension":"overworld"
+			},
+			"order":true,
+			"name":"Ice Test",
+			"checkpoints":[
+				{
+					"form":{"x":-11001,"y":137,"z":-122},
+					"to":{"x":-10993,"y":132,"z":-122},
+					"dimension":"overworld"
+				},
+				{
+					"form":{"x":-10989,"y":132,"z":-117},
+					"to":{"x":-10983,"y":132,"z":-123},
+					"dimension":"overworld"
+				},
+				{
+					"form":{"x":-11017,"y":130,"z":-116},
+					"to":{"x":-11017,"y":125,"z":-124},
+					"dimension":"overworld"
+				},
+				{
+					"form":{"x":-11037,"y":137,"z":-122},
+					"to":{"x":-11045,"y":132,"z":-122},
+					"dimension":"overworld"
+				}
+			]
 		}
 	}
 }

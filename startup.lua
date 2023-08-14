@@ -7,4 +7,4 @@ end
 
 -- running the main script
 local main = require("main") or error("Could not load the main script")
-main.run()
+main.run(arg[2])

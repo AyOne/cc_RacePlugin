@@ -4,21 +4,26 @@
 	the json structure of the scoreboard is as follow
 	{
 		<player_name> = {
-			<checkpointID> = <time>,
-			<checkpointID+1> = <time>,
-			...
-			<checkpointID+n> = <time>,
-			...
-			arrival = <time>
+			<track_name> = {
+				start = <time>,
+				<checkpointID> = <time>,
+				<checkpointID+1> = <time>,
+				...
+				<checkpointID+n> = <time>,
+				...
+				finish = <time>
+			}
 		},
 		...
 	}
 
 --]]
 database = {
-	data_folder = "disk/data/",
-	raw_scoreboard = "scoreboard.json",
+	initalized = false,
 }
+
+data_folder = "disk/",
+raw_data = "data.json"
 
 local json = require("json")
 
@@ -26,64 +31,64 @@ local json = require("json")
 
 
 
-
-
-
 function database.init()
+	if database.initalized then
+		return
+	else
+		database.initalized = true
+	end
 	-- Create the data folder if it doesn't exist
-	if not fs.exists(database.data_folder) then
-		fs.makeDir(database.data_folder)
+	if not fs.exists(data_folder) then
+		fs.makeDir(data_folder)
 	end
 
-	-- Create the scoreboard file if it doesn't exist
-	if not fs.exists(database.data_folder .. database.raw_scoreboard) then
-		local file = fs.open(database.data_folder .. database.raw_scoreboard, "w")
+	-- Create the data file if it doesn't exist
+	if not fs.exists(data_folder .. raw_data) then
+		local file = fs.open(data_folder .. raw_data, "w")
 		file.write("{}")
 		file.close()
 	end
 
-	-- Load the scoreboard
-	print("Loading scoreboard...")
-	local file = fs.open(database.data_folder .. database.raw_scoreboard, "r")
-	database.scoreboard = json.decode(file.readAll())
+	-- Load the data
+	print("Loading data...")
+	local file = fs.open(data_folder .. raw_data, "r")
+	database.data = json.decode(file.readAll())
 	file.close()
-	print("Scoreboard loaded")
+	print("data loaded")
 end
+
+
+
+
+
+
+
+
 
 function database.save()
 	-- Save the scoreboard
-	print("Saving scoreboard...")
-	local file = fs.open(database.data_folder .. database.raw_scoreboard, "w")
-	file.write(json.encode(database.scoreboard))
+	print("Saving data...")
+	local file = fs.open(data_folder .. raw_data, "w")
+	file.write(json.encode(database.data))
 	file.close()
-	print("Scoreboard saved")
+	print("data saved")
 end
 
-function database.get_scoreboard()
-	return database.scoreboard
+function database.get_data()
+	return database.data
 end
 
 function database.get_player(name)
-	return database.scoreboard[name]
-end
+	return database.data[name]
 
-function database.update_player(name, checkpoint, time)
-	if not database.scoreboard[name] then
-		database.scoreboard[name] = {}
+function database.update_player(name, track_name, checkpoint, time)
+	if not database.data[name] then
+		database.data[name] = {}
 	end
-	database.scoreboard[name][checkpoint] = time
-end
-
-function database.sort_scoreboard(checkpoint)
-	local scoreboard = {}
-	for name, player in pairs(database.scoreboard) do
-		if player[checkpoint] then
-			table.insert(scoreboard, {name, player[checkpoint]})
-		end
+	if not database.data[name][track_name]
+		database.data[name][track_name] = {}
 	end
-	table.sort(scoreboard, function(a, b) return a[2] < b[2] end)
-	return scoreboard
+	database.data[name][track_name][checkpoint] = time
 end
-
 
 return database
