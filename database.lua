@@ -22,7 +22,7 @@ database = {
 	initalized = false,
 }
 
-data_folder = "disk/",
+data_folder = "disk/"
 raw_data = "data.json"
 
 local json = require("json")
@@ -80,12 +80,13 @@ end
 
 function database.get_player(name)
 	return database.data[name]
+end
 
 function database.update_player(name, track_name, checkpoint, time)
 	if not database.data[name] then
 		database.data[name] = {}
 	end
-	if not database.data[name][track_name]
+	if not database.data[name][track_name] then
 		database.data[name][track_name] = {}
 	end
 	database.data[name][track_name][checkpoint] = time

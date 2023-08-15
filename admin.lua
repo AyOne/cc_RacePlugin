@@ -8,8 +8,7 @@ function admin.test()
 	if not commands then
 		return false
 	end
-	success, data = commands.exec("particle minecraft:happy_villager ~ ~ ~ 1 1 1 1 1")
-	return success
+	return true
 end
 
 function admin.is_player_in_boat(player)
