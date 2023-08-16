@@ -2,8 +2,9 @@ main = {}
 
 
 json = require("json")
-datbase = require("database")
+database = require("database")
 admin = require("admin")
+scoreboard = require("scoreboard")
 collisionDetection = require("collisionDetection")
 
 
