@@ -12,7 +12,7 @@ function scoreboard.load(_database)
 end
 
 function scoreboard.submit(race_data, player_name, track_name)
-	player = database.get_player(player)
+	player = database.get_player(player_name)
 	if (player == nil or player[track_name]["finish"] > race_data["finish"]) then
 		database.update_player(player_name, track_name, "start", race_data["start"])
 		database.update_player(player_name, track_name, "finish", race_data["finish"])

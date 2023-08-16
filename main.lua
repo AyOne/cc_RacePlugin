@@ -52,18 +52,18 @@ function race(track_name)
 	}
 
 
-	chatBox.sendMessageToPlayer("You have subscribe to the race, it will start soon !", racing_player, "Race Plugin")
+	chatBox.sendMessageToPlayer("You have subscribe to the race, it will start soon !", racing_player, "Race Script")
 	sleep(2)
-	chatBox.sendMessageToPlayer("Be ready on the starting line in 10...", racing_player, "Race Plugin")
+	chatBox.sendMessageToPlayer("Be ready on the starting line in 10...", racing_player, "Race Script")
 	for i=1, 9 do
 		sleep(1)
 		speaker.playNote("bell", 3, 20)
-		chatBox.sendMessageToPlayer((10 - i).."...", racing_player, "Race Plugin")
+		chatBox.sendMessageToPlayer((10 - i).."...", racing_player, "Race Script")
 	end
 	sleep(1)
 	speaker.playNote("bell", 3, 24)
 	scoreboard.status(racing_player.." is racing !")
-	chatBox.sendMessageToPlayer("Gooo !!!", racing_player, "Race Plugin")
+	chatBox.sendMessageToPlayer("Gooo !!!", racing_player, "Race Script")
 
 	local start_time = os.epoch("utc")
 	local current_time = start_time
@@ -85,7 +85,7 @@ function race(track_name)
 			checkpoint_time = current_time - start_time
 
 			-- save the time
-			time_save = nil
+			local time_save = nil
 			if (current_checkpoint == 0) then
 				time_save = checkpoint_time - (racing_player_data[track_name]["start"] or 999999999)
 				racing_data["start"] = checkpoint_time
@@ -96,6 +96,13 @@ function race(track_name)
 				time_save = checkpoint_time - (racing_player_data[track_name]["checkpoint_"..current_checkpoint] or 999999999)
 				racing_data["checkpoints"][current_checkpoint] = checkpoint_time
 			end
+			local msg = nil
+			if (time_save < 0) then
+				msg = "Checkpoint : "..checkpoint_time.." ms [-"..time_save.." ms]"
+			else
+				msg = "Checkpoint : "..checkpoint_time.." ms [+"..time_save.." ms]"
+			end
+			chatBox.sendMessageToPlayer(msg, racing_player, "Race Script")
 
 
 
