@@ -41,7 +41,10 @@ end
 
 function race(track_name)
 	racing_player = wait_for_player()
-	racing_player_data = database.get_player(player)
+	racing_player_data = database.get_player(player) or {}
+	if not racing_player_data[track_name] then
+		racing_player_data[track_name] = {}
+	end
 	racing_data = {
 		["start"] = 0,
 		["finish"] = 0,
@@ -81,13 +84,13 @@ function race(track_name)
 			-- save the time
 			time_save = nil
 			if (current_checkpoint == 0) then
-				time_save = checkpoint_time - racing_player_data[track_name]["start"]
+				time_save = checkpoint_time - (racing_player_data[track_name]["start"] or 999999999)
 				racing_data["start"] = checkpoint_time
 			elseif (last == true) then
-				time_save = checkpoint_time - racing_player_data[track_name]["finish"]
+				time_save = checkpoint_time - (racing_player_data[track_name]["finish"] or 999999999)
 				racing_data["finish"] = checkpoint_time
 			else
-				time_save = checkpoint_time - racing_player_data[track_name]["checkpoints"][current_checkpoint]
+				time_save = checkpoint_time - (racing_player_data[track_name]["checkpoint_"..current_checkpoint] or 999999999)
 				racing_data["checkpoints"][current_checkpoint] = checkpoint_time
 			end
 
