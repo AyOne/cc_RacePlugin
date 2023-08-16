@@ -8,7 +8,7 @@ database = nil
 
 function scoreboard.load(_database)
 	database = _database
-	monitor.setTextScale(0.5)
+	monitor.setTextScale(2)
 end
 
 function scoreboard.submit(race_data, player_name, track_name)
@@ -34,6 +34,13 @@ function scoreboard.sort(track_name)
 	end
 	table.sort(scores, function(a,b) return a[2] < b[2] end)
 	return scores
+end
+
+function format_score(score)
+	minutes = math.floor(score / 60000)
+	seconds = math.floor(score / 1000) % 60
+	milliseconds = score % 1000
+	return string.format("%02d:%02d.%03d", minutes, seconds, milliseconds)
 end
 
 
@@ -64,7 +71,7 @@ function scoreboard.display(track_name)
 		msg = scores[i][1]
 		monitor.setCursorPos(math.floor((size_x - #msg) / 3), cur_y)
 		monitor.write(msg)
-		msg = scores[i][2]..""
+		msg = format_score(scores[i][2])
 		monitor.setCursorPos(math.floor((size_x - #msg) / 3 * 2), cur_y)
 		monitor.write(msg)
 		cur_y = cur_y + 1
