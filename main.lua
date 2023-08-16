@@ -35,7 +35,6 @@ function main.run()
 	while true do
 		scoreboard.display("ice_test")
 		race("ice_test")
-		sleep(5)
 	end
 end
 
@@ -70,12 +69,14 @@ function race(track_name)
 	raw_race = config["race"][track_name]
 	checkpoint_to_reach = build_checkpoint(raw_race["start"]["from"], raw_race["start"]["to"])
 	last = false
+	disqualified = false
 	last_time = 0
 	while true do
 		local passed, timeFactor = player_passed_checkpoint(racing_player, checkpoint_to_reach)
 		if (passed) then
 			if (admin and not admin.is_player_in_boat(racing_player)) then
-				-- todo cancel the race
+				disqualified = true
+				break
 			end
 
 			current_time = os.epoch("utc")
@@ -116,7 +117,15 @@ function race(track_name)
 	end
 
 	-- save the score
-	scoreboard.submit(racing_data, racing_player, track_name)
+	if not disqualified then
+		scoreboard.submit(racing_data, racing_player, track_name)
+	else
+		speaker.playNote("didgeridoo", 3, -1)
+		sleep(0.2)
+		speaker.playNote("didgeridoo", 3, -1)
+		sleep(0.2)
+		speaker.playNote("didgeridoo", 3, -1)
+	end
 end
 
 
