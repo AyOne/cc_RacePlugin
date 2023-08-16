@@ -24,6 +24,19 @@ function scoreboard.submit(race_data, player_name, track_name)
 end
 
 
+
+function scoreboard.sort(track_name)
+	scores = {}
+	for name,data in pairs(database.data) do
+		if data[track_name] ~= nil then
+			table.insert(scores, {name, data[track_name].finish})
+		end
+	end
+	table.sort(scores, function(a,b) return a[2] < b[2] end)
+	return scores
+end
+
+
 function scoreboard.display(track_name)
 	size_x, size_y = monitor.getSize()
 	monitor.clear()
@@ -45,17 +58,31 @@ function scoreboard.display(track_name)
 		monitor.write("-")
 	end
 	cur_y = 5
+
+	scores = scoreboard.sort(track_name)
+	for i=1, math.min(#scores, 10) do
+		msg = scores[i][1]
+		monitor.setCursorPos(math.floor((size_x - #msg) / 3), cur_y)
+		monitor.write(msg)
+		msg = scores[i][2]..""
+		monitor.setCursorPos(math.floor((size_x - #msg) / 3 * 2), cur_y)
+		monitor.write(msg)
+		cur_y = cur_y + 1
+	end
+
+	--[[
 	for name,data in pairs(database.data) do
 		if data[track_name] ~= nil then
 			msg = name
 			monitor.setCursorPos(math.floor((size_x - #msg) / 3), cur_y)
 			monitor.write(msg)
-			msg = data[track_name].finish
+			msg = data[track_name].finish..""
 			monitor.setCursorPos(math.floor((size_x - #msg) / 3 * 2), cur_y)
 			monitor.write(msg)
 			cur_y = cur_y + 1
 		end
 	end
+	--]]
 end
 
 
