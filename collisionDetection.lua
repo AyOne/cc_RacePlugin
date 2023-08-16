@@ -55,7 +55,7 @@ end
 function CD.lineToHitbox(x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4)
 	local zy_axe, zy_factor = CD.lineToRect(y1, z1, y2, z2, y3, z3, y4-y3, z4-z3)
 	local xz_axe, xz_factor = CD.lineToRect(x1, z1, x2, z2, x3, z3, x4-x3, z4-z3)
-	local xy_axe, zy_factor = CD.lineToRect(x1, y1, x2, y2, x3, y3, x4-x3, y4-y3)
+	local xy_axe, xy_factor = CD.lineToRect(x1, y1, x2, y2, x3, y3, x4-x3, y4-y3)
 	
 	-- if at least two are true, then the line is colliding with the hitbox
 	if (zy_axe and xz_axe) then

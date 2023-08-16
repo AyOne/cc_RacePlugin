@@ -39,7 +39,7 @@ function main.run()
 	end
 end
 
-function race(race_name)
+function race(track_name)
 	racing_player = wait_for_player()
 	racing_player_data = database.get_player(player)
 	racing_data = {
@@ -64,7 +64,7 @@ function race(race_name)
 	local start_time = os.epoch("utc")
 	local current_time = start_time
 	local current_checkpoint = 0
-	raw_race = config["race"][race_name]
+	raw_race = config["race"][track_name]
 	checkpoint_to_reach = build_checkpoint(raw_race["start"]["from"], raw_race["start"]["to"])
 	last = false
 	last_time = 0
@@ -81,13 +81,13 @@ function race(race_name)
 			-- save the time
 			time_save = nil
 			if (current_checkpoint == 0) then
-				time_save = checkpoint_time - racing_player_data[race_name]["start"]
+				time_save = checkpoint_time - racing_player_data[track_name]["start"]
 				racing_data["start"] = checkpoint_time
 			elseif (last == true) then
-				time_save = checkpoint_time - racing_player_data[race_name]["finish"]
+				time_save = checkpoint_time - racing_player_data[track_name]["finish"]
 				racing_data["finish"] = checkpoint_time
 			else
-				time_save = checkpoint_time - racing_player_data[race_name]["checkpoints"][current_checkpoint]
+				time_save = checkpoint_time - racing_player_data[track_name]["checkpoints"][current_checkpoint]
 				racing_data["checkpoints"][current_checkpoint] = checkpoint_time
 			end
 
@@ -113,7 +113,7 @@ function race(race_name)
 	end
 
 	-- save the score
-	scoreboard.submit()
+	scoreboard.submit(racing_data, racing_player, track_name)
 end
 
 
