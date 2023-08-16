@@ -77,7 +77,7 @@ function scoreboard.display(track_name, status)
 		msg = scores[i][1]
 		monitor.setCursorPos(math.floor((size_x - #msg) / 3), cur_y)
 		monitor.write(msg)
-		msg = format_score(scores[i][2])
+		msg = scoreboard.format_score(scores[i][2])
 		monitor.setCursorPos(math.floor((size_x - #msg) / 3 * 2), cur_y)
 		monitor.write(msg)
 		cur_y = cur_y + 1
