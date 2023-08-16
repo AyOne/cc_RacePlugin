@@ -24,6 +24,7 @@ is_admin = admin.test()
 function main.run()
 
 	database.init()
+	scoreboard.load(database)
 
 
 
@@ -31,7 +32,8 @@ function main.run()
 
 	-- everything is initiated.
 	while true do
-		race("test")
+		scoreboard.display("ice_test")
+		race("ice_test")
 		sleep(5)
 	end
 end
@@ -51,19 +53,11 @@ function race(race_name)
 	chatBox.sendMessageToPlayer("Be ready on the starting line in 10...", racing_player, "Race Plugin")
 	for i=1, 9 do
 		sleep(1)
-		if (is_admin) then
-			admin.play_sound(racing_player, "bell", 1.7, 10)
-		elseif (speaker) then
-			speaker.playNote("bell", 3, 20)
-		end
+		speaker.playNote("bell", 3, 20)
 		chatBox.sendMessageToPlayer((10 - i).."...", racing_player, "Race Plugin")
 	end
 	sleep(1)
-	if (is_admin) then
-		admin.play_sound(racing_player, "bell", 2, 10)
-	elseif (speaker) then
-		speaker.playNote("bell", 3, 24)
-	end
+	speaker.playNote("bell", 3, 24)
 	chatBox.sendMessageToPlayer("Gooo !!!", racing_player, "Race Plugin")
 
 	local start_time = os.epoch("utc")
@@ -76,6 +70,9 @@ function race(race_name)
 	while true do
 		local passed, timeFactor = player_passed_checkpoint(racing_player, checkpoint_to_reach)
 		if (passed) then
+			if (admin and not admin.is_player_in_boat(racing_player)) then
+				-- todo cancel the race
+			end
 
 			current_time = os.epoch("utc")
 			checkpoint_time = current_time - start_time
@@ -97,35 +94,19 @@ function race(race_name)
 
 			current_checkpoint = current_checkpoint + 1
 			if (last == true) then
-				if (admin) then
-					admin.play_sound(racing_player, "bell", 2, 10)
-					sleep(0.2)
-					admin.play_sound(racing_player, "bell", 2, 10)
-					sleep(0.2)
-					admin.play_sound(racing_player, "bell", 2, 10)
-				elseif (speaker) then
-					speaker.playNote("bell", 3, 24)
-					sleep(0.2)
-					speaker.playNote("bell", 3, 24)
-					sleep(0.2)
-					speaker.playNote("bell", 3, 24)
-				end
+				speaker.playNote("bell", 3, 24)
+				sleep(0.2)
+				speaker.playNote("bell", 3, 24)
+				sleep(0.2)
+				speaker.playNote("bell", 3, 24)
 				break
 			elseif (current_checkpoint > #raw_race["checkpoints"]) then
 				checkpoint_to_reach = build_checkpoint(raw_race["finish"]["from"], raw_race["finish"]["to"])
-				if (admin) then
-					admin.play_sound(racing_player, "bell", 1, 10)
-				elseif (speaker) then
-					speaker.playNote("bell", 3, 10)
-				end
+				speaker.playNote("bell", 3, 10)
 				last = true
 			else
 				checkpoint_to_reach = build_checkpoint(raw_race["checkpoints"][current_checkpoint]["from"], raw_race["checkpoints"][current_checkpoint]["to"])
-				if (admin) then
-					admin.play_sound(racing_player, "bell", 1, 10)
-				elseif (speaker) then
-					speaker.playNote("bell", 3, 10)
-				end
+				speaker.playNote("bell", 3, 10)
 			end
 		end
 	end
