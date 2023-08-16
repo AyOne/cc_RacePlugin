@@ -34,7 +34,7 @@ function update.get_config(branch)
 end
 
 -- get all the files from github
-function update.get_all_files()
+function update.get_all_files(branch)
 	local github_url = "https://raw.githubusercontent.com/AyOne/cc_RaceScript/"..branch.."/"
 	print("Getting all the files from github...")
 	local config = fs.open("config.json", "r")
