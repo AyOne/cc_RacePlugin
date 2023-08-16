@@ -1,7 +1,7 @@
 -- making sure all the files are up to date
 if arg[1] == "update" then
 	local update = require("update") or error("Could not load the update script")
-	locla branch = arg[2] or "dev"
+	local branch = arg[2] or "dev"
 	update.get_config(branch)
 	update.get_all_files(branch)
 end

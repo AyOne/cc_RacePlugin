@@ -1,26 +1,26 @@
 main = {}
 
 
-json = require("json")
-database = require("database")
-admin = require("admin")
-scoreboard = require("scoreboard")
-collisionDetection = require("collisionDetection")
+local json = require("json")
+local database = require("database")
+local admin = require("admin")
+local scoreboard = require("scoreboard")
+local collisionDetection = require("collisionDetection")
 
 
-config = fs.open("config.json", "r")
+local config = fs.open("config.json", "r")
 config = json.decode(config.readAll())
 
 
-playerDetector = peripheral.find("playerDetector") or error(" No player detector found (required) ")
-chatBox = peripheral.find("chatBox") or error(" No chat box found (required) ")
-speaker = peripheral.find("speaker") or nil
+local playerDetector = peripheral.find("playerDetector") or error(" No player detector found (required) ")
+local chatBox = peripheral.find("chatBox") or error(" No chat box found (required) ")
+local speaker = peripheral.find("speaker") or nil
 
 
-racing_player = nil
-racing_player_data = nil
+local racing_player = nil
+local racing_player_data = nil
 
-is_admin = admin.test()
+local is_admin = admin.test()
 
 function main.run()
 
@@ -113,6 +113,7 @@ function race(race_name)
 	end
 
 	-- save the score
+	scoreboard.submit()
 end
 
 

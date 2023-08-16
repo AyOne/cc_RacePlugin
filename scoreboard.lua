@@ -11,6 +11,18 @@ function scoreboard.load(_database)
 	monitor.setTextScale(0.5)
 end
 
+function scoreboard.submit(race_data, player_name, track_name)
+	player = database.get_player(player)
+	if (player == nil or player[track_name]["finish"] > race_data["finish"]) then
+		database.update_player(player_name, track_name, "start", race_data["start"])
+		database.update_player(player_name, track_name, "finish", race_data["finish"])
+		for i,time in pairs(race_data["checkpoints"]) do
+			database.update_player(player_name, track_name, "checkpoint_"..i, time)
+		end
+		database.save()
+	end
+end
+
 
 function scoreboard.display(track_name)
 	size_x, size_y = monitor.getSize()

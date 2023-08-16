@@ -18,12 +18,12 @@
 	}
 
 --]]
-database = {
+local database = {
 	initalized = false,
 }
 
-data_folder = "disk/"
-raw_data = "data.json"
+local data_folder = "disk/"
+local raw_data = "data.json"
 
 local json = require("json")
 
