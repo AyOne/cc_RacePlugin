@@ -36,7 +36,7 @@ function scoreboard.sort(track_name)
 	return scores
 end
 
-function format_score(score)
+function scoreboard.format_score(score)
 	minutes = math.floor(score / 60000)
 	seconds = math.floor(score / 1000) % 60
 	milliseconds = score % 1000

@@ -41,7 +41,7 @@ end
 function race(track_name)
 	racing_player = wait_for_player()
 	scoreboard.status("countdown for "..racing_player)
-	racing_player_data = database.get_player(player) or {}
+	racing_player_data = database.get_player(racing_player) or {}
 	if not racing_player_data[track_name] then
 		racing_player_data[track_name] = {}
 	end
@@ -98,9 +98,9 @@ function race(track_name)
 			end
 			local msg = nil
 			if (time_save < 0) then
-				msg = "Checkpoint : "..checkpoint_time.." ms [-"..time_save.." ms]"
+				msg = "Checkpoint : "..scoreboard.format_score(checkpoint_time).." ms ["..time_save.." ms]"
 			else
-				msg = "Checkpoint : "..checkpoint_time.." ms [+"..time_save.." ms]"
+				msg = "Checkpoint : "..scoreboard.format_score(checkpoint_time).." ms [+"..time_save.." ms]"
 			end
 			chatBox.sendMessageToPlayer(msg, racing_player, "Race Script")
 
