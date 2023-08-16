@@ -9,6 +9,7 @@ local CD = {}
 
 
 function CD.lineToLine(x1, y1, x2, y2, x3, y3, x4, y4)
+	local uA, uB, intersectX, intersectY, A_C, A_B, factor
 	uA = ((x4-x3)*(y1-y3) - (y4-y3)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
 	uB = ((x2-x1)*(y1-y3) - (y2-y1)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
 
@@ -26,6 +27,7 @@ end
 
 
 function CD.lineToRect(x1, y1, x2, y2, rx, ry, rw, rh)
+	local factor, left, right, top, bottom
 	left, factor = CD.lineToLine(x1, y1, x2, y2, rx, ry, rx, ry+rh)
 	if (left) then
 		return true, factor
