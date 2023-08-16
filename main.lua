@@ -33,13 +33,14 @@ function main.run()
 
 	-- everything is initiated.
 	while true do
-		scoreboard.display("ice_test")
+		scoreboard.display("ice_test", "idle")
 		race("ice_test")
 	end
 end
 
 function race(track_name)
 	racing_player = wait_for_player()
+	scoreboard.status("countdown for "..racing_player)
 	racing_player_data = database.get_player(player) or {}
 	if not racing_player_data[track_name] then
 		racing_player_data[track_name] = {}
@@ -61,6 +62,7 @@ function race(track_name)
 	end
 	sleep(1)
 	speaker.playNote("bell", 3, 24)
+	scoreboard.status(racing_player.." is racing !")
 	chatBox.sendMessageToPlayer("Gooo !!!", racing_player, "Race Plugin")
 
 	local start_time = os.epoch("utc")

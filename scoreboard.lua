@@ -8,7 +8,7 @@ database = nil
 
 function scoreboard.load(_database)
 	database = _database
-	monitor.setTextScale(2)
+	monitor.setTextScale(1)
 end
 
 function scoreboard.submit(race_data, player_name, track_name)
@@ -43,8 +43,14 @@ function format_score(score)
 	return string.format("%02d:%02d.%03d", minutes, seconds, milliseconds)
 end
 
+function scoreboard.status(status)
+	msg = "race status : "..status
+	x,y = monitor.getSize()
+	monitor.setCursorPos(1, y)
+	monitor.write(msg)
+end
 
-function scoreboard.display(track_name)
+function scoreboard.display(track_name, status)
 	size_x, size_y = monitor.getSize()
 	monitor.clear()
 	msg = "Ice Boat Racing - "..track_name.." - Scoreboard"
@@ -77,19 +83,9 @@ function scoreboard.display(track_name)
 		cur_y = cur_y + 1
 	end
 
-	--[[
-	for name,data in pairs(database.data) do
-		if data[track_name] ~= nil then
-			msg = name
-			monitor.setCursorPos(math.floor((size_x - #msg) / 3), cur_y)
-			monitor.write(msg)
-			msg = data[track_name].finish..""
-			monitor.setCursorPos(math.floor((size_x - #msg) / 3 * 2), cur_y)
-			monitor.write(msg)
-			cur_y = cur_y + 1
-		end
+	if status ~= nil then
+		scoreboard.status(status)
 	end
-	--]]
 end
 
 
