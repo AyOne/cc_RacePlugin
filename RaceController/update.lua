@@ -8,7 +8,7 @@ local update = {}
 
 -- get the config file and the json script
 function update.get_config(branch)
-	local github_url = "https://raw.githubusercontent.com/AyOne/cc_RaceScript/"..branch.."/"
+	local github_url = "https://raw.githubusercontent.com/AyOne/cc_RaceScript/"..branch.."/RaceController/"
 	local config_file = github_url.."config.json"
 
 	print("Getting the config file from github...")
@@ -35,7 +35,7 @@ end
 
 -- get all the files from github
 function update.get_all_files(branch)
-	local github_url = "https://raw.githubusercontent.com/AyOne/cc_RaceScript/"..branch.."/"
+	local github_url = "https://raw.githubusercontent.com/AyOne/cc_RaceScript/"..branch.."/RaceController/"
 	print("Getting all the files from github...")
 	local config = fs.open("config.json", "r")
 	local json = require("json")

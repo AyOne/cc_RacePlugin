@@ -15,6 +15,7 @@ config = json.decode(config.readAll())
 local playerDetector = peripheral.find("playerDetector") or error(" No player detector found (required) ")
 local chatBox = peripheral.find("chatBox") or error(" No chat box found (required) ")
 local speaker = peripheral.find("speaker") or nil
+local modem = peripheral.wrap("top") or nil
 
 
 local racing_player = nil
