@@ -62,7 +62,7 @@ function race(track_name)
 	end
 	sleep(1)
 	speaker.playNote("bell", 3, 24)
-	scoreboard.status(racing_player.." is racing !")
+	scoreboard.status(racing_player.." is racing !  ")
 	chatBox.sendMessageToPlayer("Gooo !!!", racing_player, "Race Script")
 
 	local start_time = os.epoch("utc")
