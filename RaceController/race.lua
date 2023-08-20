@@ -212,7 +212,7 @@ end
 
 function Send_sound(checkpoint, instrument, volume, pitch)
 	local msg = {
-		["to"] = checkpoint,
+		["to"] = checkpoint.."",
 		["event_name"] = "play_sound",
 		["event_data"] = {
 			["instrument"] = instrument,
@@ -225,7 +225,7 @@ end
 
 function Send_redstone(checkpoint, side, strength)
 	local msg = {
-		["to"] = checkpoint,
+		["to"] = checkpoint.."",
 		["event_name"] = "redstone_change",
 		["event_data"] = {
 			["side"] = side,
