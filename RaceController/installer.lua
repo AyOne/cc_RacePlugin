@@ -3,7 +3,7 @@
 
 local branch = "dev"
 
-local raw_updater = http.get("https://raw.githubusercontent.com/AyOne/cc_RaceScript/"..branch.."/RaceController/updater.lua")
+local raw_updater = http.get("https://raw.githubusercontent.com/AyOne/cc_RaceScript/"..branch.."/RaceController/update.lua")
 if raw_updater then
 	local file = fs.open("updater.lua", "w")
 	file.write(raw_updater.readAll())
@@ -14,18 +14,6 @@ end
 local updater = require("updater")
 updater.get_config(branch)
 updater.get_all_files(branch)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -3,7 +3,7 @@
 		"admin.lua",
 		"collisionDetection.lua",
 		"database.lua",
-		"main.lua",
+		"race.lua",
 		"scoreboard.lua",
 		"startup.lua",
 		"update.lua"
