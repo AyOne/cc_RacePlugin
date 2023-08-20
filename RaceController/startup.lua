@@ -7,4 +7,27 @@ if arg[1] == "update" then
 end
 
 -- running the main script
-require("main").run()
+function Run()
+	local json = require("json")
+	local database = require("database")
+	local scoreboard = require("scoreboard")
+	local race = require("race")
+
+	database.init()
+	scoreboard.load(database)
+
+	local config_file = fs.open("config.json", "r")
+	local config = json.decode(config_file.readAll())
+	config_file.close()
+	
+	local track = config["default_track_name"]
+	race.init(track)
+
+	while true do
+		scoreboard.display(track, "idle")
+		race.start()
+	end
+end
+
+
+Run()

@@ -9,63 +9,21 @@
 		"update.lua"
 	],
 	"race":{
-		"test":{
-			"checkpoints":[
-				{
-					"from":{"x":-9944,"y":140,"z":-263},
-					"to":{"x":-9944,"y":135,"z":-260},
-					"dimension":"overworld"
-				},
-				{
-					"from":{"x":-9938,"y":140,"z":-282},
-					"to":{"x":-9935,"y":135,"z":-282},
-					"dimension":"overworld"
-				},
-				{
-					"from":{"x":-9945,"y":133,"z":-301},
-					"to":{"x":-9942,"y":128,"z":-301},
-					"dimension":"overworld"
-				},
-
-				{
-					"from":{"x":-9960,"y":104,"z":-329},
-					"to":{"x":-9960,"y":99,"z":-332},
-					"dimension":"overworld"
-				},
-				{
-					"from":{"x":-9978,"y":129,"z":-297},
-					"to":{"x":-9981,"y":124,"z":-297},
-					"dimension":"overworld"
-				},
-				{
-					"from":{"x":-9982,"y":140,"z":-270},
-					"to":{"x":-9985,"y":135,"z":-270},
-					"dimension":"overworld"
-				}
-			],
-			"start":{
-				"from":{"x":-9962,"y":144,"z":-259},
-				"to":{"x":-9962,"y":139,"z":-256},
-				"dimension":"overworld"
-			},
-			"finish":{
-				"from":{"x":-9978,"y":144,"z":-258},
-				"to":{"x":-9978,"y":139,"z":-255},
-				"dimension":"overworld"
-			},
-			"order":true,
-			"name":"Test"
-		},
 		"ice_test":{
+			"boat":{
+				"x":-11007,
+				"y":133,
+				"z":-101
+			},
 			"start":{
 				"from":{"x":-11006,"y":137,"z":-105},
 				"to":{"x":-11006,"y":132,"z":-97},
-				"dimension":"overworld"
+				"dimension":"minecraft:overworld"
 			},
 			"finish":{
 				"from":{"x":-11024,"y":137,"z":-97},
 				"to":{"x":-11024,"y":132,"z":-105},
-				"dimension":"overworld"
+				"dimension":"minecraft:overworld"
 			},
 			"order":true,
 			"name":"Ice Test",
@@ -73,22 +31,22 @@
 				{
 					"from":{"x":-11001,"y":137,"z":-122},
 					"to":{"x":-10993,"y":132,"z":-122},
-					"dimension":"overworld"
+					"dimension":"minecraft:overworld"
 				},
 				{
 					"from":{"x":-10989,"y":132,"z":-117},
 					"to":{"x":-10983,"y":132,"z":-123},
-					"dimension":"overworld"
+					"dimension":"minecraft:overworld"
 				},
 				{
 					"from":{"x":-11017,"y":130,"z":-116},
 					"to":{"x":-11017,"y":125,"z":-124},
-					"dimension":"overworld"
+					"dimension":"minecraft:overworld"
 				},
 				{
 					"from":{"x":-11037,"y":137,"z":-122},
 					"to":{"x":-11045,"y":132,"z":-122},
-					"dimension":"overworld"
+					"dimension":"minecraft:overworld"
 				}
 			]
 		}

@@ -1,9 +1,9 @@
-scoreboard = {}
+local scoreboard = {}
 
-monitor = peripheral.find("monitor") or error("No monitor found (required)")
+local monitor = peripheral.find("monitor") or error("No monitor found (required)")
 
 
-database = nil
+local database = nil
 
 
 function scoreboard.load(_database)
@@ -12,7 +12,7 @@ function scoreboard.load(_database)
 end
 
 function scoreboard.submit(race_data, player_name, track_name)
-	player = database.get_player(player_name)
+	local player = database.get_player(player_name)
 	if (player == nil or player[track_name]["finish"] > race_data["finish"]) then
 		database.update_player(player_name, track_name, "start", race_data["start"])
 		database.update_player(player_name, track_name, "finish", race_data["finish"])
@@ -26,7 +26,7 @@ end
 
 
 function scoreboard.sort(track_name)
-	scores = {}
+	local scores = {}
 	for name,data in pairs(database.data) do
 		if data[track_name] ~= nil then
 			table.insert(scores, {name, data[track_name].finish})
@@ -37,48 +37,48 @@ function scoreboard.sort(track_name)
 end
 
 function scoreboard.format_score(score)
-	minutes = math.floor(score / 60000)
-	seconds = math.floor(score / 1000) % 60
-	milliseconds = score % 1000
+	local minutes = math.floor(score / 60000)
+	local seconds = math.floor(score / 1000) % 60
+	local milliseconds = score % 1000
 	return string.format("%02d:%02d.%03d", minutes, seconds, milliseconds)
 end
 
 function scoreboard.status(status)
-	msg = "race status : "..status
-	x,y = monitor.getSize()
+	local msg = "race status : "..status
+	local x,y = monitor.getSize()
 	monitor.setCursorPos(1, y)
 	monitor.write(msg)
 end
 
 function scoreboard.display(track_name, status)
-	size_x, size_y = monitor.getSize()
+	local size_x, size_y = monitor.getSize()
 	monitor.clear()
-	msg = "Ice Boat Racing - "..track_name.." - Scoreboard"
+	local msg = "Ice Boat Racing - "..track_name.." - Scoreboard"
 	monitor.setCursorPos(math.floor((size_x - #msg) / 2), 1)
 	monitor.write(msg)
 	msg = "Best PLayer"
-	monitor.setCursorPos(math.floor((size_x - #msg) / 4), 3)
+	monitor.setCursorPos(math.floor(size_x / 4), 3)
 	monitor.write(msg)
-	monitor.setCursorPos(math.floor((size_x - #msg) / 4), 4)
+	monitor.setCursorPos(math.floor(size_x / 4), 4)
 	for i=1, #msg do
 		monitor.write("-")
 	end
 	msg = "Best Time"
-	monitor.setCursorPos(math.floor((size_x - #msg) / 4 * 3), 3)
+	monitor.setCursorPos(math.floor(size_x / 4 * 3), 3)
 	monitor.write(msg)
-	monitor.setCursorPos(math.floor((size_x - #msg) / 4 * 3), 4)
+	monitor.setCursorPos(math.floor(size_x / 4 * 3), 4)
 	for i=1, #msg do
 		monitor.write("-")
 	end
-	cur_y = 5
+	local cur_y = 5
 
-	scores = scoreboard.sort(track_name)
+	local scores = scoreboard.sort(track_name)
 	for i=1, math.min(#scores, 10) do
 		msg = scores[i][1]
-		monitor.setCursorPos(math.floor((size_x - #msg) / 4), cur_y)
+		monitor.setCursorPos(math.floor(size_x / 4), cur_y)
 		monitor.write(msg)
 		msg = scoreboard.format_score(scores[i][2])
-		monitor.setCursorPos(math.floor((size_x - #msg) / 4 * 3), cur_y)
+		monitor.setCursorPos(math.floor(size_x / 4 * 3), cur_y)
 		monitor.write(msg)
 		cur_y = cur_y + 1
 	end

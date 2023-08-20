@@ -1,9 +1,9 @@
 -- run this script on a new computer to install the scripts
 -- wget run https://raw.githubusercontent.com/AyOne/cc_RaceScript/main/CheckpointComputer/installer.lua
 
+local branch = "dev"
 
-
-local raw_startup = http.wget("https://raw.githubusercontent.com/AyOne/cc_RaceScript/main/CheckpointComputer/startup.lua")
+local raw_startup = http.get("https://raw.githubusercontent.com/AyOne/cc_RaceScript/"..branch.."/CheckpointComputer/startup.lua")
 if raw_startup then
 	local file = fs.open("startup.lua", "w")
 	file.write(raw_startup.readAll())
@@ -11,7 +11,7 @@ if raw_startup then
 	raw_startup.close()
 end
 
-local raw_json = http.wget("https://raw.githubusercontent.com/rxi/json.lua/master/json.lua")
+local raw_json = http.get("https://raw.githubusercontent.com/rxi/json.lua/master/json.lua")
 if raw_json then
 	local file = fs.open("json.lua", "w")
 	file.write(raw_json.readAll())
@@ -31,19 +31,20 @@ while not ok do
 	print(" -- finish")
 	print("\n")
 	print(">>")
-	term.setCursorPos(3, 7)
+	term.setCursorPos(4, 7)
 	checkpoint_name = read()
 
 	term.clear()
 	term.setCursorPos(1,1)
-	print("This computer will listen for event on checkpoint "..checkpoint_name..". is that ok ? (y/n)")
+	print("This computer is in charge of checkpoint "..checkpoint_name..".")
+	print("Is this correct ? (Y/n)")
 	print("\n")
 	print(">>")
-	term.setCursorPos(3, 4)
+	term.setCursorPos(4, 4)
 	local answer = read()
-	if answer == "y" or answer == "Y" then
+	if answer == "y" or answer == "Y" or answer == "" then
 		ok = true
-	elseif answer == "" or answer == "n" or answer == "N" then
+	elseif answer == "n" or answer == "N" then
 		ok = false
 	else
 		ok = false
@@ -54,7 +55,7 @@ os.setComputerLabel("Checkpoint controller : "..checkpoint_name)
 
 local json = require("json")
 
-config = {
+local config = {
 	["checkpoint_name"] = checkpoint_name
 }
 local file = fs.open("config.json", "w")

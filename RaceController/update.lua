@@ -1,4 +1,4 @@
-json_file = "https://raw.githubusercontent.com/rxi/json.lua/master/json.lua"
+local json_file = "https://raw.githubusercontent.com/rxi/json.lua/master/json.lua"
 
 local update = {}
 
@@ -37,9 +37,10 @@ end
 function update.get_all_files(branch)
 	local github_url = "https://raw.githubusercontent.com/AyOne/cc_RaceScript/"..branch.."/RaceController/"
 	print("Getting all the files from github...")
-	local config = fs.open("config.json", "r")
+	local config_file = fs.open("config.json", "r")
 	local json = require("json")
-	local config = json.decode(config.readAll())
+	local config = json.decode(config_file.readAll())
+	config_file.close()
 	for i, fileName in ipairs(config.files) do
 		local file = http.get(github_url..fileName) or error("Could not get the file from github")
 		if file then
