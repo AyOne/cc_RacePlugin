@@ -93,7 +93,7 @@ function Full_race()
 	sleep(1.5)
 	chatBox.sendMessageToPlayer("Be ready on the starting line in ~5s", player, "Race Script")
 
-	for i=1, 4 do
+	for i=1, 5 do
 		sleep(1)
 		Send_redstone("start", "back", i+1)
 		Send_sound("start", "bell", 3, 20)
