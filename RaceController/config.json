@@ -11,9 +11,9 @@
 	"race":{
 		"cutting_hour":{
 			"boat":{
-				"x":-11019.5,
+				"x":-11019,
 				"y":134,
-				"z":-359,
+				"z":-358,
 				"rotation":180
 			},
 			"boundary":{
