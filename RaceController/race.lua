@@ -137,19 +137,19 @@ function Full_race()
 			-- calculate the time save compared with personal best
 			local time_save = nil
 			if (current_checkpoint == 0) then
-				time_save = checkpoint_time - (player_data[track_name]["start"] or 999999999)
+				time_save = checkpoint_time - (player_data[track_name]["start"] or 0)
 				racing_data["start"] = checkpoint_time
 			elseif (last_checkpoint == true) then
-				time_save = checkpoint_time - (player_data[track_name]["finish"] or 999999999)
+				time_save = checkpoint_time - (player_data[track_name]["finish"] or 0)
 				racing_data["finish"] = checkpoint_time
 			else
-				time_save = checkpoint_time - (player_data[track_name]["checkpoint_"..current_checkpoint] or 999999999)
+				time_save = checkpoint_time - (player_data[track_name]["checkpoint_"..current_checkpoint] or 0)
 				racing_data["checkpoints"][current_checkpoint] = checkpoint_time
 			end
 
 			-- display the time save to the player
 			local msg = nil
-			if (time_save > 1000000 or time_save < 1000000) then
+			if (time_save == checkpoint_time) then
 				msg = "Checkpoint : "..scoreboard.format_score(checkpoint_time)
 			elseif (time_save < 0) then
 				msg = "Checkpoint : "..scoreboard.format_score(checkpoint_time).." ["..time_save.." ms]"
