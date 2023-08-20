@@ -88,7 +88,7 @@ function Full_race()
 	chatBox.sendMessageToPlayer("A boat has spawn for you. hope in ! It'll start soon", player, "Race Script")
 
 	admin.kill_all_boat(race_data["boundary"]["x"], race_data["boundary"]["y"], race_data["boundary"]["z"], race_data["boundary"]["dx"], race_data["boundary"]["dy"], race_data["boundary"]["dz"])
-	local boat_name = admin.summon_boat(race_data["boat"]["x"], race_data["boat"]["y"], race_data["boat"]["z"])
+	local boat_name = admin.summon_boat(race_data["boat"]["x"], race_data["boat"]["y"], race_data["boat"]["z"], race_data["boat"]["rotation"])
 	
 	sleep(1.5)
 	chatBox.sendMessageToPlayer("Be ready on the starting line in ~5s", player, "Race Script")
@@ -102,13 +102,12 @@ function Full_race()
 	-- we update the redstone to inactive for the walls
 	
 
-	sleep(0.7)
+	sleep(1)
 	Send_redstone("start", "back", 0)
-	sleep(0.3)
 
 	Send_sound("start", "bell", 3, 24)
 	scoreboard.status(player.." is racing !  ")
-	chatBox.sendMessageToPlayer("Gooo !!!", player, "Race Script")
+	--chatBox.sendMessageToPlayer("Gooo !!!", player, "Race Script")
 
 
 	local start_time = os.epoch("utc")
@@ -158,23 +157,29 @@ function Full_race()
 			end
 			chatBox.sendMessageToPlayer(msg, player, "Race Script")
 
+			if (current_checkpoint == 0) then
+				Send_sound("start", "bell", 3, 24)
+			elseif (last_checkpoint == true) then
+				Send_sound("finish", "bell", 3, 24)
+				sleep(0.2)
+				Send_sound("finish", "bell", 3, 24)
+				sleep(0.2)
+				Send_sound("finish", "bell", 3, 24)
+			else
+				Send_sound(current_checkpoint, "bell", 3, 24)
+			end
+
+
 
 			-- load the next checkpoint
 			current_checkpoint = current_checkpoint + 1
 			if (last_checkpoint == true) then
-				Send_sound("finish", "bell", 3, 24)
-				sleep(0.2)
-				Send_sound("finish", "bell", 3, 24)
-				sleep(0.2)
-				Send_sound("finish", "bell", 3, 24)
 				break
 			elseif (current_checkpoint > race_data["number_of_checkpoints"]) then
 				checkpoint_to_reach = race_data["finish"]
-				Send_sound(current_checkpoint - 1, "bell", 3, 10)
 				last_checkpoint = true
 			else
 				checkpoint_to_reach = race_data["checkpoint_"..current_checkpoint]
-				Send_sound(current_checkpoint - 1, "bell", 3, 10)
 			end
 		end
 	end
@@ -186,7 +191,7 @@ function Full_race()
 	if not disqualified then
 		scoreboard.submit(racing_data, player, track_name)
 	else
-		sleep(2)
+		sleep(1.5)
 		chatBox.sendMessageToPlayer("Something is not right... your race has been canceled.", player, "Race Script")
 	end
 end
