@@ -9,6 +9,88 @@
 		"update.lua"
 	],
 	"race":{
+		"cutting_hour":{
+			"boat":{
+				"x":-11019.5,
+				"y":134,
+				"z":-359,
+				"rotation":180
+			},
+			"boundary":{
+				"x":-11032,
+				"y":140,
+				"z":-300,
+				"dx":300,
+				"dy":-100,
+				"dz":-200
+
+			},
+			"start":{
+				"from":{"x":-11021,"y":132,"z":-357},
+				"to":{"x":-11018,"y":132,"z":-361},
+				"dimension":"minecraft:overworld"
+			},
+			"finish":{
+				"from":{"x":-11014,"y":135,"z":-344},
+				"to":{"x":-11025,"y":132,"z":-344},
+				"dimension":"minecraft:overworld"
+			},
+			"order":true,
+			"name":"Cutting Hour",
+			"checkpoints":[
+				{
+					"from":{"x":-11004,"y":130,"z":-366},
+					"to":{"x":-10993,"y":127,"z":-366},
+					"dimension":"minecraft:overworld"
+				},
+				{
+					"from":{"x":-10969,"y":126,"z":-361},
+					"to":{"x":-10969,"y":123,"z":-350},
+					"dimension":"minecraft:overworld"
+				},
+				{
+					"from":{"x":-10948,"y":125,"z":-361},
+					"to":{"x":-10948,"y":122,"z":-350},
+					"dimension":"minecraft:overworld"
+				},
+				{
+					"from":{"x":-10916,"y":125,"z":-361},
+					"to":{"x":-10916,"y":122,"z":-350},
+					"dimension":"minecraft:overworld"
+				},
+				{
+					"from":{"x":-10891,"y":125,"z":-336},
+					"to":{"x":-10916,"y":122,"z":-336},
+					"dimension":"minecraft:overworld"
+				},
+				{
+					"from":{"x":-10938,"y":125,"z":-339},
+					"to":{"x":-10927,"y":122,"z":-339},
+					"dimension":"minecraft:overworld"
+				},
+				{
+					"from":{"x":-10938,"y":125,"z":-371},
+					"to":{"x":-10927,"y":122,"z":-371},
+					"dimension":"minecraft:overworld"
+				},
+				{
+					"from":{"x":-10942,"y":110,"z":-373},
+					"to":{"x":-10942,"y":107,"z":-384},
+					"dimension":"minecraft:overworld"
+				},
+				{
+					"from":{"x":-10975,"y":110,"z":-375},
+					"to":{"x":-10986,"y":107,"z":-375},
+					"dimension":"minecraft:overworld"
+				},
+				{
+					"from":{"x":-10984,"y":110,"z":-325},
+					"to":{"x":-10984,"y":107,"z":-336},
+					"dimension":"minecraft:overworld"
+				}
+
+			]
+		},
 		"ice_test":{
 			"boat":{
 				"x":-11008,
