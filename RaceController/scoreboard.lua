@@ -57,16 +57,16 @@ function scoreboard.display(track_name, status)
 	monitor.setCursorPos(math.floor((size_x - #msg) / 2), 1)
 	monitor.write(msg)
 	msg = "Best PLayer"
-	monitor.setCursorPos(math.floor(size_x / 4), 3)
+	monitor.setCursorPos(math.floor(size_x / 5), 3)
 	monitor.write(msg)
-	monitor.setCursorPos(math.floor(size_x / 4), 4)
+	monitor.setCursorPos(math.floor(size_x / 5), 4)
 	for i=1, #msg do
 		monitor.write("-")
 	end
 	msg = "Best Time"
-	monitor.setCursorPos(math.floor(size_x / 4 * 3), 3)
+	monitor.setCursorPos(math.floor(size_x / 5 * 3), 3)
 	monitor.write(msg)
-	monitor.setCursorPos(math.floor(size_x / 4 * 3), 4)
+	monitor.setCursorPos(math.floor(size_x / 5 * 3), 4)
 	for i=1, #msg do
 		monitor.write("-")
 	end
@@ -75,10 +75,10 @@ function scoreboard.display(track_name, status)
 	local scores = scoreboard.sort(track_name)
 	for i=1, math.min(#scores, 10) do
 		msg = scores[i][1]
-		monitor.setCursorPos(math.floor(size_x / 4), cur_y)
+		monitor.setCursorPos(math.floor(size_x / 5), cur_y)
 		monitor.write(msg)
 		msg = scoreboard.format_score(scores[i][2])
-		monitor.setCursorPos(math.floor(size_x / 4 * 3), cur_y)
+		monitor.setCursorPos(math.floor(size_x / 5 * 3), cur_y)
 		monitor.write(msg)
 		cur_y = cur_y + 1
 	end

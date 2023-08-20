@@ -41,6 +41,7 @@ function race.init(_track_name)
 	race_data["finish"] = Build_checkpoint(config["race"][_track_name]["finish"]["from"], config["race"][_track_name]["finish"]["to"])
 
 	race_data["boat"] = config["race"][_track_name]["boat"]
+	race_data["boundary"] = config["race"][_track_name]["boundary"]
 end
 
 
@@ -79,7 +80,6 @@ function Full_race()
 		["finish"] = 0,
 		["checkpoints"] = {}
 	}
-
 
 
 	-- we spawn the boat and let the player get in place. we also change the redstone output
@@ -185,7 +185,7 @@ function Full_race()
 	if not disqualified then
 		scoreboard.submit(racing_data, player, track_name)
 	else
-		chatBox.sendMessageToPlayer("something is not right... your race has been canceled.", "Race Script")
+		chatBox.sendMessageToPlayer("something is not right... your race has been canceled.",player ,"Race Script")
 	end
 end
 
