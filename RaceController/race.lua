@@ -185,7 +185,7 @@ function Full_race()
 	if not disqualified then
 		scoreboard.submit(racing_data, player, track_name)
 	else
-		chatBox.sendMessageToPlayer("something is not right... your race has been canceled.",player ,"Race Script")
+		chatBox.sendMessageToPlayer("Something is not right... your race has been canceled.", player, "Race Script")
 	end
 end
 

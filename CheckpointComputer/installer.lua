@@ -31,7 +31,8 @@ while not ok do
 	print(" -- finish")
 	print("\n")
 	print(">>")
-	term.setCursorPos(4, 7)
+	local cx, cy = term.getCursorPos()
+	term.setCursorPos(4, cy - 1)
 	checkpoint_name = read()
 
 	term.clear()
@@ -40,7 +41,8 @@ while not ok do
 	print("Is this correct ? (Y/n)")
 	print("\n")
 	print(">>")
-	term.setCursorPos(4, 4)
+	cx, cy = term.getCursorPos()
+	term.setCursorPos(4, cy - 1)
 	local answer = read()
 	if answer == "y" or answer == "Y" or answer == "" then
 		ok = true

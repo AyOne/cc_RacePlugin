@@ -10,6 +10,8 @@ local modem = peripheral.find("modem") or error("No modem found")
 local speaker = peripheral.find("speaker") or nil
 modem.open(323)
 
+redstone.setOutput("back", false)
+
 
 function Wait_for_event()
 	while true do

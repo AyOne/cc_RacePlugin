@@ -37,7 +37,7 @@ function admin.summon_boat(x, y, z)
 end
 
 function admin.kill_boat(name)
-	commands.exec("kill @e[type=minecraft:boat,nbt={CustomName:\"\\\""..name.."\\\"\"}]")
+	commands.exec("kill @e[type=minecraft:boat,nbt={CustomName:'{\"text\":\""..name.."\"}'}]")
 end
 
 function admin.kill_all_boat(x,y,z,dx,dy,dz)

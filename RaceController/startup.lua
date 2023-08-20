@@ -7,6 +7,7 @@ if arg[1] == "update" then
 	update.ask_default_track()
 end
 
+
 -- running the main script
 function Run()
 	local json = require("json")
