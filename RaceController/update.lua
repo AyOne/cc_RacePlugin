@@ -53,4 +53,54 @@ function update.get_all_files(branch)
 	print("All files saved.")
 end
 
+
+function update.ask_default_track()
+
+	local json = require("json")
+	local config_file = fs.open("config.json", "r")
+	local config = json.decode(config_file.readAll())
+	config_file.close()
+
+	local ok = false
+	local default_track_name = ""
+	while not ok do
+		term.setBackgroundColor(colors.black)
+		term.clear()
+		term.setCursorPos(1,1)
+		print("Track name (case sensitive):")
+		print("\n")
+		for k,v in pairs(config["race"]) do
+			print(" -> "..k)
+		end
+		print("\n")
+		print(">>")
+		local cx, cy = term.getCursorPos()
+		term.setCursorPos(4, cy - 1)
+		default_track_name = read()
+
+		term.clear()
+		term.setCursorPos(1,1)
+		print("This computer is in charge of the track "..default_track_name..".")
+		print("Is this correct ? (Y/n)")
+		print("\n")
+		print(">>")
+		cx, cy = term.getCursorPos()
+		term.setCursorPos(4, cy - 1)
+		local answer = read()
+		if answer == "y" or answer == "Y" or answer == "" then
+			ok = true
+		elseif answer == "n" or answer == "N" then
+			ok = false
+		else
+			ok = false
+		end
+	end
+	
+	config["default_track_name"] = default_track_name
+	config_file = fs.open("config.json", "w")
+	config_file.write(json.encode(config))
+	config_file.close()
+
+	os.setComputerLabel("Race Controller : "..default_track_name)
+end
 return update
