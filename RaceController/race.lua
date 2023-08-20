@@ -9,7 +9,7 @@ local collisionDetection = require("collisionDetection")
 
 
 local config_file = fs.open("config.json", "r")
-local config = json.decode(config.readAll())
+local config = json.decode(config_file.readAll())
 config_file.close()
 
 
@@ -87,7 +87,7 @@ function Full_race()
 	sleep(1)
 	chatBox.sendMessageToPlayer("A boat has spawn for you. hope in ! It'll start soon", player, "Race Script")
 
-	admin.kill_all_boat(race_data["boundry"]["x"], race_data["boundry"]["y"], race_data["boundry"]["z"], race_data["boundry"]["dx"], race_data["boundry"]["dy"], race_data["boundry"]["dz"])
+	admin.kill_all_boat(race_data["boundary"]["x"], race_data["boundary"]["y"], race_data["boundary"]["z"], race_data["boundary"]["dx"], race_data["boundary"]["dy"], race_data["boundary"]["dz"])
 	local boat_name = admin.summon_boat(race_data["boat"]["x"], race_data["boat"]["y"], race_data["boat"]["z"])
 	
 	sleep(1)
