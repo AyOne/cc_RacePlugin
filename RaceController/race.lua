@@ -84,27 +84,28 @@ function Full_race()
 
 	-- we spawn the boat and let the player get in place. we also change the redstone output
 	chatBox.sendMessageToPlayer("You have subscribe to the race, good luck ;)", player, "Race Script")
-	sleep(1)
+	sleep(1.5)
 	chatBox.sendMessageToPlayer("A boat has spawn for you. hope in ! It'll start soon", player, "Race Script")
 
 	admin.kill_all_boat(race_data["boundary"]["x"], race_data["boundary"]["y"], race_data["boundary"]["z"], race_data["boundary"]["dx"], race_data["boundary"]["dy"], race_data["boundary"]["dz"])
 	local boat_name = admin.summon_boat(race_data["boat"]["x"], race_data["boat"]["y"], race_data["boat"]["z"])
 	
-	sleep(1)
-	chatBox.sendMessageToPlayer("Be ready on the starting line in 10...", player, "Race Script")
+	sleep(1.5)
+	chatBox.sendMessageToPlayer("Be ready on the starting line in ~5s", player, "Race Script")
 
-	for i=1, 9 do
+	for i=1, 4 do
 		sleep(1)
 		Send_sound("start", "bell", 3, 20)
-		chatBox.sendMessageToPlayer((10 - i).."...", player, "Race Script")
+		--chatBox.sendMessageToPlayer((10 - i).."...", player, "Race Script")
 	end
 
 	-- we update the redstone to inactive for the walls
+	
+
+	sleep(0.7)
 	Send_redstone("start", "back", 0)
+	sleep(0.3)
 
-
-
-	sleep(1)
 	Send_sound("start", "bell", 3, 24)
 	scoreboard.status(player.." is racing !  ")
 	chatBox.sendMessageToPlayer("Gooo !!!", player, "Race Script")
@@ -185,6 +186,7 @@ function Full_race()
 	if not disqualified then
 		scoreboard.submit(racing_data, player, track_name)
 	else
+		sleep(2)
 		chatBox.sendMessageToPlayer("Something is not right... your race has been canceled.", player, "Race Script")
 	end
 end

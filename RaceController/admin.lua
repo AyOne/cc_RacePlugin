@@ -30,13 +30,14 @@ function string.random(length)
 	end
 end
 
-function admin.summon_boat(x, y, z)
+function admin.summon_boat(x, y, z, rotation)
 	local name = string.random(10)
-	commands.exec("summon minecraft:boat "..x.." "..y.." "..z.." {CustomName:\"\\\""..name.."\\\"\"}")
+	commands.exec("summon minecraft:boat "..x.." "..y.." "..z.." {Rotation:["..rotation.."f,0f],CustomName:\"\\\""..name.."\\\"\"}")
 	return name
 end
 
 function admin.kill_boat(name)
+	print("kill @e[type=minecraft:boat,nbt={CustomName:'{\"text\":\""..name.."\"}'}]")
 	commands.exec("kill @e[type=minecraft:boat,nbt={CustomName:'{\"text\":\""..name.."\"}'}]")
 end
 
