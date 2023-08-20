@@ -4,6 +4,7 @@ if arg[1] == "update" then
 	local branch = arg[2] or "main"
 	update.get_config(branch)
 	update.get_all_files(branch)
+	update.ask_default_track()
 end
 
 -- running the main script
