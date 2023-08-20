@@ -67,7 +67,7 @@ function Full_race()
 	scoreboard.status("countdown for "..player)
 
 	-- we update the redstone to active for the walls
-	Send_redstone("start", "back", 15)
+	Send_redstone("start", "back", 1)
 
 
 
@@ -95,6 +95,7 @@ function Full_race()
 
 	for i=1, 4 do
 		sleep(1)
+		Send_redstone("start", "back", i+1)
 		Send_sound("start", "bell", 3, 20)
 		--chatBox.sendMessageToPlayer((10 - i).."...", player, "Race Script")
 	end
@@ -148,7 +149,7 @@ function Full_race()
 
 			-- display the time save to the player
 			local msg = nil
-			if (time_save > 1000000) then
+			if (time_save > 1000000 or time_save < 1000000) then
 				msg = "Checkpoint : "..scoreboard.format_score(checkpoint_time)
 			elseif (time_save < 0) then
 				msg = "Checkpoint : "..scoreboard.format_score(checkpoint_time).." ["..time_save.." ms]"
@@ -191,7 +192,7 @@ function Full_race()
 	if not disqualified then
 		scoreboard.submit(racing_data, player, track_name)
 	else
-		sleep(1.5)
+		sleep(0.5)
 		chatBox.sendMessageToPlayer("Something is not right... your race has been canceled.", player, "Race Script")
 	end
 end
