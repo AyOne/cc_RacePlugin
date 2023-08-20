@@ -27,6 +27,13 @@ local track_name = nil
 
 
 
+--[[
+	TODO : firework on pb
+	TODO : better scoreboard display when someone is racing
+	TODO : chat message when someone make it to the podium
+--]]
+
+
 
 
 function race.init(_track_name)

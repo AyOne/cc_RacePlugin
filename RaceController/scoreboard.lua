@@ -20,6 +20,7 @@ function scoreboard.submit(race_data, player_name, track_name)
 			database.update_player(player_name, track_name, "checkpoint_"..i, time)
 		end
 		database.save()
+		return true
 	end
 end
 
