@@ -10,6 +10,10 @@ function admin.test()
 	return true
 end
 
+function admin.teleport(player, x, y, z, rotation)
+	commands.exec("tp "..player.." "..x.." "..y.." "..z.." "..rotation.." 0")
+end
+
 function admin.is_player_in_boat(player, boat_name)
 	if boat_name then
 		local success, data = commands.exec("execute if entity @a[name=\""..player.."\",nbt={RootVehicle:{Entity:{id:\"minecraft:boat\",CustomName:'{\"text\":\""..boat_name.."\"}'}}}]")

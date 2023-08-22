@@ -30,6 +30,7 @@ local track_name = nil
 --[[
 	TODO : firework on pb
 	TODO : better scoreboard display when someone is racing
+	TODO : better scoreboard display when someone finish
 	TODO : chat message when someone make it to the podium
 --]]
 
@@ -49,6 +50,8 @@ function race.init(_track_name)
 
 	race_data["boat"] = config["race"][_track_name]["boat"]
 	race_data["boundary"] = config["race"][_track_name]["boundary"]
+
+	race_data["player_reset"] = config["player_reset"]
 end
 
 
@@ -200,6 +203,7 @@ function Full_race()
 		scoreboard.submit(racing_data, player, track_name)
 	else
 		sleep(0.5)
+		admin.teleport(player, race_data["x"], race_data["y"], race_data["z"], race_data["rotation"])
 		chatBox.sendMessageToPlayer("Something is not right... your race has been canceled.", player, "Race Script")
 	end
 end
