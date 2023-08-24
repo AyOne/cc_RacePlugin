@@ -118,7 +118,7 @@ function scoreboard.racing_pannel(track_name, track_config, player_name, racing_
 	monitor.setCursorPos(anchor, 4)
 	monitor.write(msg)
 
-	for i=1, racing_data.number_of_checkpoints do
+	for i=1, #track_config.checkpoints do
 		anchor = math.floor(size_x / 5)
 		msg = "checkpoint "..i.." : "..scoreboard.format_score(racing_data["checkpoint_"..i])
 		monitor.setCursorPos(anchor, 4 + i)
@@ -131,11 +131,11 @@ function scoreboard.racing_pannel(track_name, track_config, player_name, racing_
 
 	anchor = math.floor(size_x / 5)
 	msg = "Finish : "..scoreboard.format_score(racing_data["finish"])
-	monitor.setCursorPos(anchor, 4 + racing_data.number_of_checkpoints + 1)
+	monitor.setCursorPos(anchor, 4 + #track_config.checkpoints + 1)
 	monitor.write(msg)
 	anchor = math.floor(size_x / 5 * 3)
 	msg = "personal best : "..scoreboard.format_score(player[track_name].finish or 0)
-	monitor.setCursorPos(anchor, 4 + racing_data.number_of_checkpoints + 1)
+	monitor.setCursorPos(anchor, 4 + #track_config.checkpoints + 1)
 	monitor.write(msg)
 end
 
