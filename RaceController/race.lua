@@ -108,6 +108,8 @@ function Full_race()
 	-- we wait for the player to click on the chatbox
 	player = Wait_for_player()
 
+	race_state = "racing"
+
 
 	-- we update the status on the scoreboard
 	--scoreboard.status("countdown for "..player)
