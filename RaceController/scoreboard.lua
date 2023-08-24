@@ -120,7 +120,7 @@ function scoreboard.racing_pannel(track_name, track_config, player_name, racing_
 
 	for i=1, #track_config.checkpoints do
 		anchor = math.floor(size_x / 5)
-		msg = "checkpoint "..i.." : "..scoreboard.format_score(racing_data["checkpoint_"..i] or 0)
+		msg = "checkpoint "..i.." : "..scoreboard.format_score(racing_data.checkpoints[i] or 0)
 		monitor.setCursorPos(anchor, 4 + i)
 		monitor.write(msg)
 		anchor = math.floor(size_x / 5 * 3)
@@ -294,7 +294,7 @@ function scoreboard.idle_2(track_name, track_config)
 		anchor = math.floor(size_x / 5 * 2)
 		msg = math.floor(players[i][2].number_of_try or 0)
 		monitor.setCursorPos(anchor, cur_y)
-		monitor.write(msg)
+		monitor.write(msg.."")
 
 		anchor = math.floor(size_x / 5 * 3)
 		msg = scoreboard.format_big_score(players[i][2].total_time_racing or 0)

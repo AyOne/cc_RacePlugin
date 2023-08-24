@@ -345,11 +345,13 @@ function Scoreboard_thread()
 			scoreboard.racing_pannel(track_name, config.race[track_name], player, racing_data)
 			sleep(1)
 		elseif (race_state == "disqualified") then
-			sleep(5)
+			sleep(7)
 			race_state = "idle"
+			pannel = 1
 		elseif (race_state == "finished") then
-			sleep(5)
+			sleep(7)
 			race_state = "idle"
+			pannel = 1
 		end
 	end
 end
