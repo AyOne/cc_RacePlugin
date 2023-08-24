@@ -21,7 +21,7 @@ function scoreboard.format_big_score(score)
 	local minutes = math.floor(score / 60000)
 	local seconds = math.floor(score / 1000) % 60
 	local milliseconds = score % 1000
-	return string.format("%03:%02d:%02d.%03d", hours, minutes, seconds, milliseconds)
+	return string.format("%03d:%02d:%02d.%03d", hours, minutes, seconds, milliseconds)
 end
 
 function scoreboard.format_date(data)
@@ -282,17 +282,17 @@ function scoreboard.idle_1(track_name, track_config)
 	-- Content
 	local cur_y = 5
 	for i=1, math.min(#players, 15) do
-		anchor = math.floor(size_x / 6)
+		anchor = math.floor(size_x / 5)
 		msg = players[i][1]
 		monitor.setCursorPos(anchor, cur_y)
 		monitor.write(msg)
 
-		anchor = math.floor(size_x / 6 * 3)
+		anchor = math.floor(size_x / 5 * 2)
 		msg = scoreboard.format_date(players[i][2].date)
 		monitor.setCursorPos(anchor, cur_y)
 		monitor.write(msg)
 
-		anchor = math.floor(size_x / 6 * 5)
+		anchor = math.floor(size_x / 5 * 3)
 		msg = scoreboard.format_score(players[i][2].finish)
 		monitor.setCursorPos(anchor, cur_y)
 		monitor.write(msg)
@@ -364,17 +364,17 @@ function scoreboard.idle_2(track_name, track_config)
 	-- Content
 	local cur_y = 5
 	for i=1, math.min(#players, 15) do
-		anchor = math.floor(size_x / 6)
+		anchor = math.floor(size_x / 5)
 		msg = players[i][1]
 		monitor.setCursorPos(anchor, cur_y)
 		monitor.write(msg)
 
-		anchor = math.floor(size_x / 6 * 3)
+		anchor = math.floor(size_x / 5 * 2)
 		msg = math.floor(players[i][2].number_of_try or 0)
 		monitor.setCursorPos(anchor, cur_y)
 		monitor.write(msg)
 
-		anchor = math.floor(size_x / 6 * 5)
+		anchor = math.floor(size_x / 5 * 3)
 		msg = scoreboard.format_big_score(players[i][2].total_time_racing or 0)
 		monitor.setCursorPos(anchor, cur_y)
 		monitor.write(msg)
