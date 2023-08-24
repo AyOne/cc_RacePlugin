@@ -21,9 +21,10 @@ local modem = peripheral.wrap("top") or error(" No modem found (required) ")
 local player = nil
 local player_data = nil
 local race_data = nil
-local disqualified = false
+local disqualified = true
 local stop_thread = false
 local track_name = nil
+local race_state = "idle"
 
 
 
@@ -93,7 +94,7 @@ end
 
 function race.start()
 	stop_thread = false
-	parallel.waitForAny(Full_race, Disconnect_thread)
+	parallel.waitForAny(Full_race, Disconnect_thread, Scoreboard_thread)
 	stop_thread = true
 end
 
@@ -238,11 +239,13 @@ function Full_race()
 
 	-- save the score
 	if not disqualified then
+		race_state = "finished"
 		scoreboard.submit(racing_data, player, track_name)
 	else
+		race_state = "disqualified"
 		scoreboard.discard(racing_data, player, track_name)
-		sleep(0.5)
 		admin.teleport(player, race_data.player_reset.x, race_data.player_reset.y, race_data.player_reset.z, race_data.player_reset.rotation)
+		sleep(0.5)
 		chatBox.sendMessageToPlayer("Something is not right... your race has been canceled.", player, "Race Script")
 	end
 end
@@ -323,7 +326,27 @@ function Disconnect_thread()
 end
 
 
-
+function Scoreboard_thread()
+	local pannel = 1
+	while not stop_thread do
+		if (race_state == "idle") then
+			if (pannel == 1) then
+				scoreboard.idle_1(track_name, config.race[track_name])
+				pannel = 2
+			elseif (pannel == 2) then
+				scoreboard.idle_2(track_name, config.race[track_name])
+				pannel = 1
+			end
+			sleep(3)
+		elseif (race_state == "disqualified") then
+			sleep(5)
+			race_state = "idle"
+		elseif (race_state == "finished") then
+			sleep(5)
+			race_state = "idle"
+		end
+	end
+end
 
 
 

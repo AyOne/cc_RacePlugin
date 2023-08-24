@@ -26,8 +26,6 @@ function Run()
 	race.init(track)
 
 	while true do
-		--scoreboard.display(track, "idle")
-		scoreboard.full_pannel(track, config.race[track])
 		race.start()
 	end
 end

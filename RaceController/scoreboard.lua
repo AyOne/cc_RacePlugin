@@ -233,7 +233,7 @@ function scoreboard.idle_1(track_name, track_config)
 
 	-- Title
 	local msg = " "..track_config.name.." "
-	for i=1, math.ceil(size_x / 2) - #msg do
+	for i=1, math.ceil((size_x - #msg) / 2) do
 		msg = "="..msg.."="
 	end
 	monitor.setCursorPos(1, 1)
@@ -249,16 +249,16 @@ function scoreboard.idle_1(track_name, track_config)
 			max_name_length = #players[i][1]
 		end
 	end
-	local anchor = math.floor(size_x / 6)
+	local anchor = math.floor(size_x / 5)
 	msg = "Racer"
 	monitor.setCursorPos(anchor, 3)
 	monitor.write(msg)
 	monitor.setCursorPos(anchor, 4)
-	for i=1, #max_name_length do
+	for i=1, max_name_length do
 		monitor.write("-")
 	end
 
-	anchor = math.floor(size_x / 6 * 3)
+	anchor = math.floor(size_x / 5 * 2)
 	msg = "Date"
 	monitor.setCursorPos(anchor, 3)
 	monitor.write(msg)
@@ -267,7 +267,7 @@ function scoreboard.idle_1(track_name, track_config)
 		monitor.write("-")
 	end
 
-	anchor = math.floor(size_x / 6 * 5)
+	anchor = math.floor(size_x / 5 * 3)
 	msg = "Best time"
 	monitor.setCursorPos(anchor, 3)
 	monitor.write(msg)
@@ -300,6 +300,92 @@ function scoreboard.idle_1(track_name, track_config)
 		cur_y = cur_y + 1
 	end
 end
+
+
+
+
+
+function scoreboard.idle_2(track_name, track_config)
+	local players = scoreboard.sort(track_name)
+
+	monitor.setBackgroundColor(colors.black)
+	monitor.clear()
+	monitor.setTextColor(colors.white)
+	local size_x, size_y = monitor.getSize()
+
+	-- Title
+	local msg = " "..track_config.name.." "
+	for i=1, math.ceil((size_x - #msg) / 2) do
+		msg = "="..msg.."="
+	end
+	monitor.setCursorPos(1, 1)
+	monitor.write(msg)
+
+
+
+	-- Header
+	local max_name_length = 0
+	for i=1, math.min(#players, 15) do
+		if #players[i][1] > max_name_length then
+			max_name_length = #players[i][1]
+		end
+	end
+
+	local anchor = math.floor(size_x / 5)
+	msg = "Racer"
+	monitor.setCursorPos(anchor, 3)
+	monitor.write(msg)
+	monitor.setCursorPos(anchor, 4)
+	for i=1, max_name_length do
+		monitor.write("-")
+	end
+
+	anchor = math.floor(size_x / 5 * 2)
+	msg = "Number of try"
+	monitor.setCursorPos(anchor, 3)
+	monitor.write(msg)
+	monitor.setCursorPos(anchor, 4)
+	for i=1, 13 do
+		monitor.write("-")
+	end
+
+	anchor = math.floor(size_x / 5 * 3)
+	msg = "Total time racing"
+	monitor.setCursorPos(anchor, 3)
+	monitor.write(msg)
+	monitor.setCursorPos(anchor, 4)
+	for i=1, 18 do
+		monitor.write("-")
+	end
+
+
+
+
+	-- Content
+	local cur_y = 5
+	for i=1, math.min(#players, 15) do
+		anchor = math.floor(size_x / 6)
+		msg = players[i][1]
+		monitor.setCursorPos(anchor, cur_y)
+		monitor.write(msg)
+
+		anchor = math.floor(size_x / 6 * 3)
+		msg = math.floor(players[i][2].number_of_try or 0)
+		monitor.setCursorPos(anchor, cur_y)
+		monitor.write(msg)
+
+		anchor = math.floor(size_x / 6 * 5)
+		msg = scoreboard.format_big_score(players[i][2].total_time_racing or 0)
+		monitor.setCursorPos(anchor, cur_y)
+		monitor.write(msg)
+
+		cur_y = cur_y + 1
+	end
+
+
+
+end
+
 
 
 
