@@ -343,6 +343,7 @@ function Scoreboard_thread()
 			sleep(3)
 		elseif (race_state == "racing") then
 			scoreboard.racing_pannel(track_name, config.race[track_name], player, racing_data)
+			sleep(1)
 		elseif (race_state == "disqualified") then
 			sleep(5)
 			race_state = "idle"

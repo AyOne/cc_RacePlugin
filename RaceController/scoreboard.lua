@@ -120,7 +120,7 @@ function scoreboard.racing_pannel(track_name, track_config, player_name, racing_
 
 	for i=1, #track_config.checkpoints do
 		anchor = math.floor(size_x / 5)
-		msg = "checkpoint "..i.." : "..scoreboard.format_score(racing_data["checkpoint_"..i])
+		msg = "checkpoint "..i.." : "..scoreboard.format_score(racing_data["checkpoint_"..i] or 0)
 		monitor.setCursorPos(anchor, 4 + i)
 		monitor.write(msg)
 		anchor = math.floor(size_x / 5 * 3)
