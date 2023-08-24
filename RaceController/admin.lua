@@ -48,4 +48,27 @@ function admin.kill_all_boat(x,y,z,dx,dy,dz)
 	commands.exec("kill @e[type=minecraft:boat,x="..x..",y="..y..",z="..z..",dx="..dx..",dy="..dy..",dz="..dz.."]")
 end
 
+function admin.firework(x, y, z, lifeTime, flightTime, type, expl_color, flicker_color)
+	-- /summon firework_rocket ~ ~ ~ {LifeTime:20,FireworksItem:{id:firework_rocket,Count:1,tag:{Fireworks:{Flight:2,Explosions:[{Type:2,Flicker:1b,Trail:1b,Colors:[I;16766720],FadeColors:[I;16777215]}]}}}}
+	local command = "summon firework_rocket "
+	command = command..x.." "..y.." "..z.." "
+	command = command.."{LifeTime:"..lifeTime..",FireworksItem:{id:firework_rocket,Count:1,tag:{Fireworks:{Flight:"..flightTime
+	local expl_type = nil
+	if (type == "small") then
+		expl_type = "1b"
+	elseif (type == "big") then
+		expl_type = "1"
+	elseif (type == "star") then
+		expl_type = "2"
+	elseif (type == "creeper") then
+		expl_type = "3"
+	elseif (type == "burst") then
+		expl_type = "4"
+	end
+	command = command..",Explosions:[{Type:"..expl_type..",Flicker:1b,Trail:1b,Colors:[I;"..expl_color.."],FadeColors:[I;"..flicker_color.."]}]}}}}"
+	commands.exec(command)
+end
+
+
+
 return admin

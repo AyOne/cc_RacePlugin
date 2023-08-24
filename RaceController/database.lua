@@ -82,7 +82,7 @@ function database.get_player(name)
 	return database.data[name]
 end
 
-function database.update_player(name, track_name, checkpoint, time)
+function database.update_player_time(name, track_name, checkpoint, time)
 	if not database.data[name] then
 		database.data[name] = {}
 	end
@@ -91,5 +91,36 @@ function database.update_player(name, track_name, checkpoint, time)
 	end
 	database.data[name][track_name][checkpoint] = time
 end
+
+function database.update_player_date(name, track_name, date)
+	if not database.data[name] then
+		database.data[name] = {}
+	end
+	if not database.data[name][track_name] then
+		database.data[name][track_name] = {}
+	end
+	database.data[name][track_name]["date"] = date
+end
+
+function database.update_player_total_time_racing(name, track_name, total_time_racing)
+	if not database.data[name] then
+		database.data[name] = {}
+	end
+	if not database.data[name][track_name] then
+		database.data[name][track_name] = {}
+	end
+	database.data[name][track_name]["total_time_racing"] = total_time_racing
+end
+
+function database.update_player_number_of_try(name, track_name, number_of_try)
+	if not database.data[name] then
+		database.data[name] = {}
+	end
+	if not database.data[name][track_name] then
+		database.data[name][track_name] = {}
+	end
+	database.data[name][track_name]["number_of_try"] = number_of_try
+end
+
 
 return database

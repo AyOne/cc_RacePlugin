@@ -27,10 +27,45 @@ local track_name = nil
 
 
 
+local firework = {
+	["WOOOW"] = {
+		["number"] = "24",
+		["color"] = 16766720,
+		["flicker"] = 16777215,
+		["type"] = "star"
+	},
+	["world_record"] = {
+		["number"] = "6",
+		["color"] = 16766720,
+		["flicker"] = 16777215,
+		["type"] = "star"
+	},
+	["2nd"] = {
+		["number"] = "4",
+		["color"] = 12632256,
+		["flicker"] = 16777215,
+		["type"] = "large"
+	},
+	["3rd"] = {
+		["number"] = "2",
+		["color"] = 13467442,
+		["flicker"] = 16777215,
+		["type"] = "large"
+	},
+	["personal_best"] = {
+		["number"] = "1",
+		["color"] = 2515356,
+		["flicker"] = 16777215,
+		["type"] = "small"
+	}
+}
+
+
 --[[
 	TODO : firework on pb
 	TODO : better scoreboard display when someone is racing
 	TODO : better scoreboard display when someone finish
+	TODO : better redstone signal for checkpoints
 	TODO : chat message when someone make it to the podium
 --]]
 
@@ -86,6 +121,7 @@ function Full_race()
 		player_data[track_name] = {}
 	end
 	local racing_data = {
+		["start_time"] = 0,
 		["start"] = 0,
 		["finish"] = 0,
 		["checkpoints"] = {}
@@ -122,6 +158,7 @@ function Full_race()
 
 
 	local start_time = os.epoch("utc")
+	racing_data["start_time"] = start_time
 	local current_time = start_time
 
 	local current_checkpoint = 0
