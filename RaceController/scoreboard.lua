@@ -319,7 +319,6 @@ end
 
 function scoreboard.discard(race_data, player_name, track_name)
 	local player = database.get_player(player_name)
-	database.update_player_number_of_try(player_name, track_name, (player[track_name]["number_of_try"] or 0) + 1)
 	local last_time = player[track_name]["finish"] or 0
 	if (last_time == 0) then
 		for k, v in pairs(race_data["checkpoints"]) do
@@ -328,14 +327,26 @@ function scoreboard.discard(race_data, player_name, track_name)
 			end
 		end
 	end
-	database.update_player_total_time_racing(player_name, track_name, (player[track_name]["total_time_racing"] or 0) + last_time)
+	if (not player or not player[track_name]) then
+		database.update_player_number_of_try(player_name, track_name, 1)
+		database.update_player_total_time_racing(player_name, track_name, last_time)
+	else
+		database.update_player_number_of_try(player_name, track_name, (player[track_name]["number_of_try"] or 0) + 1)
+		database.update_player_total_time_racing(player_name, track_name, (player[track_name]["total_time_racing"] or 0) + last_time)
+	end
 end
 
 
 function scoreboard.submit(race_data, player_name, track_name)
 	local player = database.get_player(player_name)
-	database.update_player_number_of_try(player_name, track_name, (player[track_name]["number_of_try"] or 0) + 1)
-	database.update_player_total_time_racing(player_name, track_name, (player[track_name]["total_time_racing"] or 0) + race_data["finish"])
+	if (not player or not player[track_name]) then
+		database.update_player_number_of_try(player_name, track_name, 1)
+		database.update_player_total_time_racing(player_name, track_name, race_data["finish"])
+	else
+		database.update_player_number_of_try(player_name, track_name, (player[track_name]["number_of_try"] or 0) + 1)
+		database.update_player_total_time_racing(player_name, track_name, (player[track_name]["total_time_racing"] or 0) + race_data["finish"])
+	end
+
 	if (player == nil or player[track_name]["finish"] > race_data["finish"]) then
 		database.update_player_date(player_name, track_name, race_data.start_time)
 		database.update_player_time(player_name, track_name, "start", race_data["start"])
