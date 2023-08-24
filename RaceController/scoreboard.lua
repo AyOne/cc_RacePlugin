@@ -35,7 +35,7 @@ function scoreboard.sort(track_name)
 			table.insert(scores, {name, data[track_name]})
 		end
 	end
-	table.sort(scores, function(a,b) return a[2] < b[2] end)
+	table.sort(scores, function(a,b) return a[2].finish < b[2].finish end)
 	return scores
 end
 
@@ -135,7 +135,7 @@ function scoreboard.full_pannel(track_name, track_config)
 	monitor.setCursorPos(anchor, 3)
 	monitor.write(msg)
 	monitor.setCursorPos(anchor, 4)
-	for i=1, #max_name_length do
+	for i=1, max_name_length do
 		monitor.write("-")
 	end
 	

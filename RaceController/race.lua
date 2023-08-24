@@ -109,7 +109,7 @@ function Full_race()
 
 
 	-- we update the status on the scoreboard
-	scoreboard.status("countdown for "..player)
+	--scoreboard.status("countdown for "..player)
 
 	-- we update the redstone to active for the walls
 	Send_redstone("start", "back", 1)
@@ -153,7 +153,7 @@ function Full_race()
 	Send_redstone("start", "back", 0)
 
 	Send_sound("start", "bell", 3, 24)
-	scoreboard.status(player.." is racing !  ")
+	--scoreboard.status(player.." is racing !  ")
 	--chatBox.sendMessageToPlayer("Gooo !!!", player, "Race Script")
 
 
@@ -239,6 +239,7 @@ function Full_race()
 	if not disqualified then
 		scoreboard.submit(racing_data, player, track_name)
 	else
+		scoreboard.discard(racing_data, player, track_name)
 		sleep(0.5)
 		admin.teleport(player, race_data["x"], race_data["y"], race_data["z"], race_data["rotation"])
 		chatBox.sendMessageToPlayer("Something is not right... your race has been canceled.", player, "Race Script")
