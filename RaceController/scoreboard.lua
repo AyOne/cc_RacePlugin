@@ -356,6 +356,9 @@ function scoreboard.get_position(score, player_name, track_name)
 			position_after = i
 		end
 	end
+	if (position_after == 0) then
+		position_after = #players + 1
+	end
 	for i=1, #players do
 		if (player_name == players[i][1]) then
 			position_before = i
