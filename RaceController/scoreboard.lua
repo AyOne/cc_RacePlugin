@@ -201,7 +201,7 @@ function scoreboard.full_pannel(track_name, track_config)
 		monitor.write(msg)
 
 		anchor = math.floor(size_x / 7 * 5)
-		msg = scoreboard.format_score(players[i][2].total_time_racing or 0)
+		msg = scoreboard.format_big_score(players[i][2].total_time_racing or 0)
 		monitor.setCursorPos(anchor, cur_y)
 		monitor.write(msg)
 
@@ -319,7 +319,7 @@ end
 
 function scoreboard.discard(race_data, player_name, track_name)
 	local player = database.get_player(player_name)
-	local last_time = player[track_name]["finish"] or 0
+	local last_time = race_data["finish"] or 0
 	if (last_time == 0) then
 		for k, v in pairs(race_data["checkpoints"]) do
 			if (v > last_time) then

@@ -86,7 +86,7 @@ function race.init(_track_name)
 	race_data["boat"] = config["race"][_track_name]["boat"]
 	race_data["boundary"] = config["race"][_track_name]["boundary"]
 
-	race_data["player_reset"] = config["player_reset"]
+	race_data["player_reset"] = config["race"][_track_name]["player_reset"]
 end
 
 
