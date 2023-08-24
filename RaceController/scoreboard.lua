@@ -334,6 +334,8 @@ function scoreboard.discard(race_data, player_name, track_name)
 		database.update_player_number_of_try(player_name, track_name, (player[track_name]["number_of_try"] or 0) + 1)
 		database.update_player_total_time_racing(player_name, track_name, (player[track_name]["total_time_racing"] or 0) + last_time)
 	end
+
+	database.save()
 end
 
 
