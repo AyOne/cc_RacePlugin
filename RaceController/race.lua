@@ -252,21 +252,21 @@ function Full_race()
 						admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework.world_record.type, firework.world_record.color, firework.world_record.flicker)
 						sleep(0.0001)
 					end
-					chatBox.sendMessage("Congratulation to "..player.." who got the World Record ["..scoreboard.format_score(racing_data.finish).."] on the track "..config.track[track_name].name.." !!!", "Race Script")
+					chatBox.sendMessage("Congratulation to "..player.." who got the World Record ["..scoreboard.format_score(racing_data.finish).."] on the track "..config.race[track_name].name.." !!!", "Race Script")
 				elseif (after == 2) then
 					for i=1, firework["2nd"].number do
 						admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework["2nd"].type, firework["2nd"].color, firework["2nd"].flicker)
 						admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework["2nd"].type, firework["2nd"].color, firework["2nd"].flicker)
 						sleep(0.0001)
 					end
-					chatBox.sendMessage("Congratulation to "..player.." who got the 2d place ["..scoreboard.format_score(racing_data.finish).."] on the track "..config.track[track_name].name.." !!!", "Race Script")
+					chatBox.sendMessage("Congratulation to "..player.." who got the 2d place ["..scoreboard.format_score(racing_data.finish).."] on the track "..config.race[track_name].name.." !!!", "Race Script")
 				elseif (after == 3) then
 					for i=1, firework["3rd"].number do
 						admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework["3rd"].type, firework["3rd"].color, firework["3rd"].flicker)
 						admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework["3rd"].type, firework["3rd"].color, firework["3rd"].flicker)
 						sleep(0.0001)
 					end
-					chatBox.sendMessage("Congratulation to "..player.." who got the 3rd place ["..scoreboard.format_score(racing_data.finish).."] on the track "..config.track[track_name].name.." !!!", "Race Script")
+					chatBox.sendMessage("Congratulation to "..player.." who got the 3rd place ["..scoreboard.format_score(racing_data.finish).."] on the track "..config.race[track_name].name.." !!!", "Race Script")
 				end
 			elseif (before == after and after == 1) then
 				for i=1, firework["WOOOW"].number do
@@ -274,7 +274,7 @@ function Full_race()
 					admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework["WOOOW"].type, firework["WOOOW"].color, firework["WOOOW"].flicker)
 					sleep(0.0001)
 				end
-				chatBox.sendMessage("Congratulation to "..player.." who beat his/her own World Record ["..scoreboard.format_score(racing_data.finish).."] on the track "..config.track[track_name].name.." !!!", "Race Script")
+				chatBox.sendMessage("Congratulation to "..player.." who beat his/her own World Record ["..scoreboard.format_score(racing_data.finish).."] on the track "..config.race[track_name].name.." !!!", "Race Script")
 			else
 				for i=1, firework["personal_best"].number do
 					admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework["personal_best"].type, firework["personal_best"].color, firework["personal_best"].flicker)
