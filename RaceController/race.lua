@@ -31,31 +31,31 @@ local racing_data = nil
 
 local firework = {
 	["WOOOW"] = {
-		["number"] = "24",
+		["number"] = 24,
 		["color"] = 16766720,
 		["flicker"] = 16777215,
 		["type"] = "star"
 	},
 	["world_record"] = {
-		["number"] = "6",
+		["number"] = 12,
 		["color"] = 16766720,
 		["flicker"] = 16777215,
 		["type"] = "star"
 	},
 	["2nd"] = {
-		["number"] = "4",
+		["number"] = 6,
 		["color"] = 12632256,
 		["flicker"] = 16777215,
 		["type"] = "large"
 	},
 	["3rd"] = {
-		["number"] = "2",
+		["number"] = 3,
 		["color"] = 13467442,
 		["flicker"] = 16777215,
 		["type"] = "large"
 	},
 	["personal_best"] = {
-		["number"] = "1",
+		["number"] = 1,
 		["color"] = 2515356,
 		["flicker"] = 16777215,
 		["type"] = "small"
@@ -228,8 +228,8 @@ function Full_race()
 			current_checkpoint = current_checkpoint + 1
 			if (last_checkpoint == true) then
 				break
-			elseif (current_checkpoint > race_data["number_of_checkpoints"]) then
-				checkpoint_to_reach = race_data["finish"]
+			elseif (current_checkpoint > race_data.number_of_checkpoints) then
+				checkpoint_to_reach = race_data.finish
 				last_checkpoint = true
 			else
 				checkpoint_to_reach = race_data["checkpoint_"..current_checkpoint]
@@ -243,7 +243,46 @@ function Full_race()
 	-- save the score
 	if not disqualified then
 		race_state = "finished"
-		scoreboard.submit(racing_data, player, track_name)
+		local pb, before, after = scoreboard.submit(racing_data, player, track_name)
+		if (pb) then
+			if (after < before and after <= 3) then
+				if (after == 1) then
+					for i=1, firework["world_record"].number do
+						admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework.world_record.type, firework.world_record.color, firework.world_record.flicker)
+						admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework.world_record.type, firework.world_record.color, firework.world_record.flicker)
+						sleep(0.0001)
+					end
+					chatBox.sendMessage("Congratulation to "..player.." who got the World Record ["..scoreboard.format_score(racing_data.finish).."] on the track "..config.track[track_name].name.." !!!", "Race Script")
+				elseif (after == 2) then
+					for i=1, firework["2nd"].number do
+						admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework["2nd"].type, firework["2nd"].color, firework["2nd"].flicker)
+						admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework["2nd"].type, firework["2nd"].color, firework["2nd"].flicker)
+						sleep(0.0001)
+					end
+					chatBox.sendMessage("Congratulation to "..player.." who got the 2d place ["..scoreboard.format_score(racing_data.finish).."] on the track "..config.track[track_name].name.." !!!", "Race Script")
+				elseif (after == 3) then
+					for i=1, firework["3rd"].number do
+						admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework["3rd"].type, firework["3rd"].color, firework["3rd"].flicker)
+						admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework["3rd"].type, firework["3rd"].color, firework["3rd"].flicker)
+						sleep(0.0001)
+					end
+					chatBox.sendMessage("Congratulation to "..player.." who got the 3rd place ["..scoreboard.format_score(racing_data.finish).."] on the track "..config.track[track_name].name.." !!!", "Race Script")
+				end
+			elseif (before == after and after == 1) then
+				for i=1, firework["WOOOW"].number do
+					admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework["WOOOW"].type, firework["WOOOW"].color, firework["WOOOW"].flicker)
+					admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework["WOOOW"].type, firework["WOOOW"].color, firework["WOOOW"].flicker)
+					sleep(0.0001)
+				end
+				chatBox.sendMessage("Congratulation to "..player.." who beat his/her own World Record ["..scoreboard.format_score(racing_data.finish).."] on the track "..config.track[track_name].name.." !!!", "Race Script")
+			else
+				for i=1, firework["personal_best"].number do
+					admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework["personal_best"].type, firework["personal_best"].color, firework["personal_best"].flicker)
+					admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework["personal_best"].type, firework["personal_best"].color, firework["personal_best"].flicker)
+					sleep(0.0001)
+				end
+			end
+		end
 	else
 		race_state = "disqualified"
 		scoreboard.discard(racing_data, player, track_name)

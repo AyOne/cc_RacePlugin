@@ -110,7 +110,7 @@ function scoreboard.racing_pannel(track_name, track_config, player_name, racing_
 	monitor.write(msg)
 
 	anchor = math.floor(size_x / 5)
-	msg = "Start : "..scoreboard.format_score(racing_data["start"] or 0)
+	msg = "Start : "..scoreboard.format_score(racing_data.start or 0)
 	monitor.setCursorPos(anchor, 4)
 	monitor.write(msg)
 	anchor = math.floor(size_x / 5 * 3)
@@ -130,7 +130,7 @@ function scoreboard.racing_pannel(track_name, track_config, player_name, racing_
 	end
 
 	anchor = math.floor(size_x / 5)
-	msg = "Finish : "..scoreboard.format_score(racing_data["finish"])
+	msg = "Finish : "..scoreboard.format_score(racing_data.finish)
 	monitor.setCursorPos(anchor, 4 + #track_config.checkpoints + 1)
 	monitor.write(msg)
 	anchor = math.floor(size_x / 5 * 3)
@@ -347,8 +347,27 @@ function scoreboard.discard(race_data, player_name, track_name)
 end
 
 
+function scoreboard.get_position(score, player_name, track_name)
+	local players = scoreboard.sort(track_name)
+	local position_before = 0
+	local position_after = 0
+	for i=1, #players do
+		if (score > players[i][2].finish) then
+			position_after = i
+		end
+	end
+	for i=1, #players do
+		if (player_name == players[i][1]) then
+			position_before = i
+			break
+		end
+	end
+	return position_before, position_after
+end
+
 function scoreboard.submit(race_data, player_name, track_name)
 	local player = database.get_player(player_name)
+	local position_before, position_after = scoreboard.get_position(race_data.finish, player_name, track_name)
 	if (not player or not player[track_name]) then
 		database.update_player_number_of_try(player_name, track_name, 1)
 		database.update_player_total_time_racing(player_name, track_name, race_data["finish"])
@@ -365,57 +384,9 @@ function scoreboard.submit(race_data, player_name, track_name)
 			database.update_player_time(player_name, track_name, "checkpoint_"..i, time)
 		end
 		database.save()
-		return true
+		return true, position_before, position_after
 	end
-end
-
-
-
-function scoreboard.status(status)
-	error("scoreboard.status() is deprecated")
-	local msg = "race status : "..status
-	local x,y = monitor.getSize()
-	monitor.setCursorPos(1, y)
-	monitor.write(msg)
-end
-
-function scoreboard.display(track_name, status)
-	error("scoreboard.display() is deprecated")
-	local size_x, size_y = monitor.getSize()
-	monitor.clear()
-	local msg = "Ice Boat Racing - "..track_name.." - Scoreboard"
-	monitor.setCursorPos(math.floor((size_x - #msg) / 2), 1)
-	monitor.write(msg)
-	msg = "Best PLayer"
-	monitor.setCursorPos(math.floor(size_x / 5), 3)
-	monitor.write(msg)
-	monitor.setCursorPos(math.floor(size_x / 5), 4)
-	for i=1, #msg do
-		monitor.write("-")
-	end
-	msg = "Best Time"
-	monitor.setCursorPos(math.floor(size_x / 5 * 3), 3)
-	monitor.write(msg)
-	monitor.setCursorPos(math.floor(size_x / 5 * 3), 4)
-	for i=1, #msg do
-		monitor.write("-")
-	end
-	local cur_y = 5
-
-	local scores = scoreboard.sort(track_name)
-	for i=1, math.min(#scores, 10) do
-		msg = scores[i][1]
-		monitor.setCursorPos(math.floor(size_x / 5), cur_y)
-		monitor.write(msg)
-		msg = scoreboard.format_score(scores[i][2])
-		monitor.setCursorPos(math.floor(size_x / 5 * 3), cur_y)
-		monitor.write(msg)
-		cur_y = cur_y + 1
-	end
-
-	if status ~= nil then
-		scoreboard.status(status)
-	end
+	return false, position_before, position_after
 end
 
 
