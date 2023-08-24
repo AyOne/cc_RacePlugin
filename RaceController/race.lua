@@ -25,6 +25,7 @@ local disqualified = true
 local stop_thread = false
 local track_name = nil
 local race_state = "idle"
+local racing_data = nil
 
 
 
@@ -123,7 +124,7 @@ function Full_race()
 	if not player_data[track_name] then
 		player_data[track_name] = {}
 	end
-	local racing_data = {
+	racing_data = {
 		["start_time"] = 0,
 		["start"] = 0,
 		["finish"] = 0,
@@ -340,6 +341,8 @@ function Scoreboard_thread()
 				pannel = 1
 			end
 			sleep(3)
+		elseif (race_state == "racing") then
+			scoreboard.racing_pannel(track_name, config.race[track_name], player, racing_data)
 		elseif (race_state == "disqualified") then
 			sleep(5)
 			race_state = "idle"
