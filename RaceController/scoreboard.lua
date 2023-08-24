@@ -386,6 +386,7 @@ function scoreboard.submit(race_data, player_name, track_name)
 		database.save()
 		return true, position_before, position_after
 	end
+	database.save()
 	return false, position_before, position_after
 end
 

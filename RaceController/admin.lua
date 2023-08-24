@@ -56,7 +56,7 @@ function admin.firework(x, y, z, lifeTime, flightTime, type, expl_color, flicker
 	local expl_type = nil
 	if (type == "small") then
 		expl_type = "1b"
-	elseif (type == "big") then
+	elseif (type == "large") then
 		expl_type = "1"
 	elseif (type == "star") then
 		expl_type = "2"

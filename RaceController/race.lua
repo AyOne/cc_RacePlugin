@@ -245,7 +245,7 @@ function Full_race()
 		race_state = "finished"
 		local pb, before, after = scoreboard.submit(racing_data, player, track_name)
 		if (pb) then
-			if (after < before and after <= 3) then
+			if (((before ~= 0 and after < before) or before == 0) and after <= 3) then
 				if (after == 1) then
 					for i=1, firework["world_record"].number do
 						admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework.world_record.type, firework.world_record.color, firework.world_record.flicker)
@@ -384,12 +384,12 @@ function Scoreboard_thread()
 			scoreboard.racing_pannel(track_name, config.race[track_name], player, racing_data)
 			sleep(1)
 		elseif (race_state == "disqualified") then
-			sleep(7)
 			race_state = "idle"
+			sleep(7)
 			pannel = 1
 		elseif (race_state == "finished") then
-			sleep(7)
 			race_state = "idle"
+			sleep(7)
 			pannel = 1
 		end
 	end
