@@ -136,6 +136,7 @@ function Full_race()
 	admin.kill_all_boat(race_data["boundary"]["x"], race_data["boundary"]["y"], race_data["boundary"]["z"], race_data["boundary"]["dx"], race_data["boundary"]["dy"], race_data["boundary"]["dz"])
 	local boat_name = admin.summon_boat(race_data["boat"]["x"], race_data["boat"]["y"], race_data["boat"]["z"], race_data["boat"]["rotation"])
 	
+	
 	sleep(1.5)
 	chatBox.sendMessageToPlayer("Be ready on the starting line in ~5s", player, "Race Script")
 
@@ -241,7 +242,7 @@ function Full_race()
 	else
 		scoreboard.discard(racing_data, player, track_name)
 		sleep(0.5)
-		admin.teleport(player, race_data["x"], race_data["y"], race_data["z"], race_data["rotation"])
+		admin.teleport(player, race_data.player_reset.x, race_data.player_reset.y, race_data.player_reset.z, race_data.player_reset.rotation)
 		chatBox.sendMessageToPlayer("Something is not right... your race has been canceled.", player, "Race Script")
 	end
 end
