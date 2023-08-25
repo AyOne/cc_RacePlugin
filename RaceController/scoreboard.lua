@@ -31,7 +31,7 @@ end
 function scoreboard.sort(track_name)
 	local scores = {}
 	for name,data in pairs(database.data) do
-		if data[track_name] ~= nil then
+		if data[track_name] ~= nil and data[track_name].finish then
 			table.insert(scores, {name, data[track_name]})
 		end
 	end
@@ -352,7 +352,7 @@ function scoreboard.get_position(score, player_name, track_name)
 	local position_before = 0
 	local position_after = 0
 	for i=1, #players do
-		if (score > players[i][2].finish or players[i][1] == player_name) then
+		if (score < players[i][2].finish or players[i][1] == player_name) then
 			position_after = i
 		end
 	end
@@ -373,13 +373,13 @@ function scoreboard.submit(race_data, player_name, track_name)
 	local position_before, position_after = scoreboard.get_position(race_data.finish, player_name, track_name)
 	if (not player or not player[track_name]) then
 		database.update_player_number_of_try(player_name, track_name, 1)
-		database.update_player_total_time_racing(player_name, track_name, race_data["finish"])
+		database.update_player_total_time_racing(player_name, track_name, race_data.finish)
 	else
 		database.update_player_number_of_try(player_name, track_name, (player[track_name]["number_of_try"] or 0) + 1)
-		database.update_player_total_time_racing(player_name, track_name, (player[track_name]["total_time_racing"] or 0) + race_data["finish"])
+		database.update_player_total_time_racing(player_name, track_name, (player[track_name]["total_time_racing"] or 0) + race_data.finish)
 	end
 
-	if (player == nil or player[track_name]["finish"] > race_data["finish"]) then
+	if (player == nil or (player[track_name].finish or 999999999) > race_data.finish) then
 		database.update_player_date(player_name, track_name, race_data.start_time)
 		database.update_player_time(player_name, track_name, "start", race_data["start"])
 		database.update_player_time(player_name, track_name, "finish", race_data["finish"])
