@@ -352,8 +352,9 @@ function scoreboard.get_position(score, player_name, track_name)
 	local position_before = 0
 	local position_after = 0
 	for i=1, #players do
-		if (score < players[i][2].finish or players[i][1] == player_name) then
+		if (players[i][2].finish > score or players[i][1] == player_name) then
 			position_after = i
+			break
 		end
 	end
 	if (position_after == 0) then
