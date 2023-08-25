@@ -64,11 +64,8 @@ local firework = {
 
 
 --[[
-	TODO : firework on pb
-	TODO : better scoreboard display when someone is racing
-	TODO : better scoreboard display when someone finish
 	TODO : better redstone signal for checkpoints
-	TODO : chat message when someone make it to the podium
+	TODO : refactor the code to make it more readable
 --]]
 
 
