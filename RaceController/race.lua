@@ -130,7 +130,7 @@ function Full_race()
 		["finish"] = 0,
 		["checkpoints"] = {}
 	}
-
+	scoreboard.racing_pannel(track_name, config.race[track_name], player, racing_data)
 
 	-- we spawn the boat and let the player get in place. we also change the redstone output
 	chatBox.sendMessageToPlayer("You have subscribe to the race, good luck ;)", player, "Race Script")
@@ -199,6 +199,8 @@ function Full_race()
 				racing_data["checkpoints"][current_checkpoint] = checkpoint_time
 			end
 
+
+			scoreboard.racing_pannel(track_name, config.race[track_name], player, racing_data)
 			-- display the time save to the player
 			local msg = nil
 			if (time_save == checkpoint_time) then
@@ -237,6 +239,7 @@ function Full_race()
 		end
 	end
 
+	scoreboard.racing_pannel(track_name, config.race[track_name], player, racing_data)
 	-- we make sure to remove the boat
 	admin.kill_boat(boat_name)
 
@@ -380,9 +383,6 @@ function Scoreboard_thread()
 				pannel = 1
 			end
 			sleep(3)
-		elseif (race_state == "racing") then
-			scoreboard.racing_pannel(track_name, config.race[track_name], player, racing_data)
-			sleep(1)
 		elseif (race_state == "disqualified") then
 			race_state = "idle"
 			sleep(7)
