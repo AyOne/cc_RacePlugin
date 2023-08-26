@@ -66,6 +66,7 @@ local firework = {
 --[[
 	TODO : better redstone signal for checkpoints
 	TODO : refactor the code to make it more readable
+	TODO : README.md
 --]]
 
 
@@ -102,6 +103,10 @@ end
 
 
 function Full_race()
+
+	if not race_data or not track_name then
+		error("race not initiated")
+	end
 
 	-- we wait for the player to click on the chatbox
 	player = Wait_for_player()
@@ -178,6 +183,19 @@ function Full_race()
 		-- check if the player passed the checkpoint
 		local passed, timeFactor = Player_passed_checkpoint(player, checkpoint_to_reach)
 		if (passed) then
+
+			-- each checkpoint has a redstone signal depending on the number of checkpoint between the player and the checkpoint
+			for i=current_checkpoint, race_data.number_of_checkpoints do
+				local signal_strength = i - current_checkpoint - 1
+				Send_redstone(i, "back", math.max(0, math.min(15, signal_strength)))
+			end
+
+
+
+
+
+
+
 
 			-- calculate the time
 			current_time = os.epoch("utc")
