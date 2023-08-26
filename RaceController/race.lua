@@ -406,7 +406,7 @@ function Scoreboard_thread()
 			race_state = "idle"
 			sleep(7)
 			pannel = 1
-		end
+		else sleep(0.1) end
 	end
 end
 
