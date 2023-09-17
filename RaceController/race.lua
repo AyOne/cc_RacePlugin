@@ -87,6 +87,10 @@ function race.init(_track_name)
 	race_data["boundary"] = config["race"][_track_name]["boundary"]
 
 	race_data["player_reset"] = config["race"][_track_name]["player_reset"]
+
+	race_data["firework"] = config["race"][_track_name]["firework"]
+	race_data["teleport"] = config["race"][_track_name]["teleport"]
+	race_data["teleportWhenFinish"] = config["race"][_track_name]["teleportWhenFinish"]
 end
 
 
@@ -265,46 +269,61 @@ function Full_race()
 		if (pb) then
 			if (((before ~= 0 and after < before) or before == 0) and after <= 3) then
 				if (after == 1) then
-					for i=1, firework["world_record"].number do
-						admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework.world_record.type, firework.world_record.color, firework.world_record.flicker)
-						admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework.world_record.type, firework.world_record.color, firework.world_record.flicker)
-						sleep(0.0001)
+					if (race_data["firework"]) then
+						for i=1, firework["world_record"].number do
+							admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework.world_record.type, firework.world_record.color, firework.world_record.flicker)
+							admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework.world_record.type, firework.world_record.color, firework.world_record.flicker)
+							sleep(0.0001)
+						end
 					end
 					chatBox.sendMessage("Congratulation to "..player.." who got the World Record ["..scoreboard.format_score(racing_data.finish).."] on the track "..config.race[track_name].name.." !!!", "Race Script")
 				elseif (after == 2) then
-					for i=1, firework["2nd"].number do
-						admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework["2nd"].type, firework["2nd"].color, firework["2nd"].flicker)
-						admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework["2nd"].type, firework["2nd"].color, firework["2nd"].flicker)
-						sleep(0.0001)
+					if (race_data["firework"]) then
+						for i=1, firework["2nd"].number do
+							admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework["2nd"].type, firework["2nd"].color, firework["2nd"].flicker)
+							admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework["2nd"].type, firework["2nd"].color, firework["2nd"].flicker)
+							sleep(0.0001)
+						end
 					end
 					chatBox.sendMessage("Congratulation to "..player.." who got the 2d place ["..scoreboard.format_score(racing_data.finish).."] on the track "..config.race[track_name].name.." !!!", "Race Script")
 				elseif (after == 3) then
-					for i=1, firework["3rd"].number do
-						admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework["3rd"].type, firework["3rd"].color, firework["3rd"].flicker)
-						admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework["3rd"].type, firework["3rd"].color, firework["3rd"].flicker)
-						sleep(0.0001)
+					if (race_data["firework"]) then
+						for i=1, firework["3rd"].number do
+							admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework["3rd"].type, firework["3rd"].color, firework["3rd"].flicker)
+							admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework["3rd"].type, firework["3rd"].color, firework["3rd"].flicker)
+							sleep(0.0001)
+						end
 					end
 					chatBox.sendMessage("Congratulation to "..player.." who got the 3rd place ["..scoreboard.format_score(racing_data.finish).."] on the track "..config.race[track_name].name.." !!!", "Race Script")
 				end
 			elseif (before == after and after == 1) then
-				for i=1, firework["WOOOW"].number do
-					admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework["WOOOW"].type, firework["WOOOW"].color, firework["WOOOW"].flicker)
-					admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework["WOOOW"].type, firework["WOOOW"].color, firework["WOOOW"].flicker)
-					sleep(0.0001)
+				if (race_data["firework"]) then
+					for i=1, firework["WOOOW"].number do
+						admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework["WOOOW"].type, firework["WOOOW"].color, firework["WOOOW"].flicker)
+						admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework["WOOOW"].type, firework["WOOOW"].color, firework["WOOOW"].flicker)
+						sleep(0.0001)
+					end
 				end
 				chatBox.sendMessage("Congratulation to "..player.." who beat his/her own World Record ["..scoreboard.format_score(racing_data.finish).."] on the track "..config.race[track_name].name.." !!!", "Race Script")
 			else
-				for i=1, firework["personal_best"].number do
-					admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework["personal_best"].type, firework["personal_best"].color, firework["personal_best"].flicker)
-					admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework["personal_best"].type, firework["personal_best"].color, firework["personal_best"].flicker)
-					sleep(0.0001)
+				if (race_data["firework"]) then
+					for i=1, firework["personal_best"].number do
+						admin.firework(race_data.finish.max_x, race_data.finish.max_y, race_data.finish.max_z, 20, 2, firework["personal_best"].type, firework["personal_best"].color, firework["personal_best"].flicker)
+						admin.firework(race_data.finish.min_x, race_data.finish.max_y, race_data.finish.min_z, 20, 2, firework["personal_best"].type, firework["personal_best"].color, firework["personal_best"].flicker)
+						sleep(0.0001)
+					end
 				end
 			end
+		end
+		if (race_data["teleportWhenFinish"]) then
+			admin.teleport(player, race_data.player_reset.x, race_data.player_reset.y, race_data.player_reset.z, race_data.player_reset.rotation)
 		end
 	else
 		race_state = "disqualified"
 		scoreboard.discard(racing_data, player, track_name)
-		admin.teleport(player, race_data.player_reset.x, race_data.player_reset.y, race_data.player_reset.z, race_data.player_reset.rotation)
+		if (race_data["teleport"]) then
+			admin.teleport(player, race_data.player_reset.x, race_data.player_reset.y, race_data.player_reset.z, race_data.player_reset.rotation)
+		end
 		sleep(0.5)
 		chatBox.sendMessageToPlayer("Something is not right... your race has been canceled.", player, "Race Script")
 	end

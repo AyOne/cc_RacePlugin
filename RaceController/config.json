@@ -9,6 +9,90 @@
 		"update.lua"
 	],
 	"race":{
+		"community_race":{
+			"order":true,
+			"teleport":true,
+			"teleportWhenFinish":true,
+			"name":"Community Race",
+			"firework":false,
+			"boat":{
+				"x":-7411.5,
+				"y":168,
+				"z":-2538.5,
+				"rotation":-90
+			},
+			"boundary":{
+				"x":-7500,
+				"y":270,
+				"z":-2520,
+				"dx":400,
+				"dy":-250,
+				"dz":-250
+			},
+			"player_reset":{
+				"x":-7413,
+				"y":168,
+				"z":-2533,
+				"rotation":0
+			},
+			"start":{
+				"from":{"x":-7409,"y":170,"z":-2541},
+				"to":{"x":-7409,"y":166,"z":-2537},
+				"dimension":"allthemodium:mining"
+			},
+			"finish":{
+				"from":{"x":-7193,"y":164,"z":-2605},
+				"to":{"x":-7183,"y":164,"z":-2595},
+				"dimension":"allthemodium:mining"
+			},
+			"checkpoints":[
+				{
+					"from":{"x":-7349,"y":166,"z":-2565},
+					"to":{"x":-7355,"y":162,"z":-2565},
+					"dimension":"allthemodium:mining"
+				},
+				{
+					"from":{"x":-7353,"y":166,"z":-2653},
+					"to":{"x":-7358,"y":162,"z":-2653},
+					"dimension":"allthemodium:mining"
+				},
+				{
+					"from":{"x":-7404,"y":162,"z":-2675},
+					"to":{"x":-7404,"y":167,"z":-2653},
+					"dimension":"allthemodium:mining"
+				},
+				{
+					"from":{"x":-7462,"y":157,"z":-2643},
+					"to":{"x":-7462,"y":153,"z":-2653},
+					"dimension":"allthemodium:mining"
+				},
+				{
+					"from":{"x":-7376,"y":188,"z":-2622},
+					"to":{"x":-7376,"y":183,"z":-2628},
+					"dimension":"allthemodium:mining"
+				},
+				{
+					"from":{"x":-7295, "y":240, "z":-2614},
+					"to":{"x":-7285, "y":235, "z":-2614},
+					"dimension":"allthemodium:mining"
+				},
+				{
+					"from":{"x":-7214, "y":240, "z":-2568},
+					"to":{"x":-7214, "y":235, "z":-2558},
+					"dimension":"allthemodium:mining"
+				},
+				{
+					"from":{"x":-7208, "y":189, "z":-2616},
+					"to":{"x":-7198, "y":184, "z":-2616},
+					"dimension":"allthemodium:mining"
+				},
+				{
+					"from":{"x":-7219, "y":178, "z":-2543},
+					"to":{"x":-7229, "y":178, "z":-2533},
+					"dimension":"allthemodium:mining"
+				}
+			]
+		},
 		"cutting_hour":{
 			"boat":{
 				"x":-11019.2,
@@ -41,7 +125,10 @@
 				"dimension":"minecraft:overworld"
 			},
 			"order":true,
+			"teleport":true,
+			"teleportWhenFinish":false,
 			"name":"Cutting Hour",
+			"firework":true,
 			"checkpoints":[
 				{
 					"from":{"x":-11004,"y":130,"z":-366},
@@ -128,8 +215,11 @@
 				"to":{"x":-11024,"y":132,"z":-105},
 				"dimension":"minecraft:overworld"
 			},
+			"firework":true,
 			"order":true,
 			"name":"Ice Test",
+			"teleport":true,
+			"teleportWhenFinish":false,
 			"checkpoints":[
 				{
 					"from":{"x":-11001,"y":137,"z":-122},
